@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Sendmux\Mailbox;
+namespace Qubrics\Mailbox;
 
-use Sendmux\Mailbox\Api\MailboxAPIApi;
+use Qubrics\Mailbox\Api\MailboxAPIApi;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\HandlerStack;
-use Sendmux\Core\ApiKeySurface;
-use Sendmux\Core\Auth;
-use Sendmux\Core\RetryMiddleware;
-use Sendmux\Core\RetryOptions;
+use Qubrics\Core\ApiKeySurface;
+use Qubrics\Core\Auth;
+use Qubrics\Core\RetryMiddleware;
+use Qubrics\Core\RetryOptions;
 
 final class ClientFactory
 {
@@ -33,9 +33,9 @@ final class ClientFactory
         string|callable|null $accessToken = null
     ): ClientInterface {
         $stack = HandlerStack::create();
-        $stack->push(RetryMiddleware::create($retryOptions), 'sendmux_retry');
+        $stack->push(RetryMiddleware::create($retryOptions), 'qubrics_retry');
         if ($accessToken !== null) {
-            $stack->push(Auth::accessTokenMiddleware($accessToken), 'sendmux_oauth');
+            $stack->push(Auth::accessTokenMiddleware($accessToken), 'qubrics_oauth');
         }
 
         return new Client(['handler' => $stack, 'allow_redirects' => $accessToken === null]);
