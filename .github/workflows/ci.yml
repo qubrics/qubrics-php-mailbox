@@ -28,5 +28,22 @@ jobs:
       - name: Validate Composer metadata
         run: composer validate --strict
 
+      - name: Check out core
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          repository: qubrics/qubrics-php-core
+          ref: main
+          path: .ci/core
+          persist-credentials: false
+
+      - name: Install candidate dependencies
+        run: |
+          cp composer.json composer.ci.json
+          COMPOSER=composer.ci.json composer config repositories.qubrics '{"type":"path","url":".ci/*","options":{"versions":{"qubrics/core":"3.0.0"}}}'
+          COMPOSER=composer.ci.json composer install --no-interaction --no-progress
+
+      - name: Test public contract
+        run: composer test
+
       - name: Check PHP syntax
-        run: find src -type f -name '*.php' -print0 | xargs -0 -n 1 php -l
+        run: find src tests -type f -name '*.php' -print0 | xargs -0 -n 1 php -l

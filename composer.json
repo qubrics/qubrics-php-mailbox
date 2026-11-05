@@ -1,6 +1,6 @@
 {
-  "name": "sendmux/mailbox",
-  "description": "Sendmux Mailbox API client for PHP.",
+  "name": "qubrics/mailbox",
+  "description": "Qubrics Mailbox API client for PHP.",
   "type": "library",
   "license": "MIT",
   "require": {
@@ -10,11 +10,14 @@
     "ext-mbstring": "*",
     "guzzlehttp/guzzle": "^7.10",
     "guzzlehttp/psr7": "^2.7",
-    "sendmux/core": "^2.1"
+    "qubrics/core": "^3.0"
   },
   "autoload": {
     "psr-4": {
-      "Sendmux\\Mailbox\\": "src/"
+      "Qubrics\\Mailbox\\": "src/"
     }
+  },
+  "scripts": {
+    "test": "php tests/public-contract.php"
   }
 }

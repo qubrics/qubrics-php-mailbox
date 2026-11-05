@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+### Changed
+
+- Breaking: install `qubrics/mailbox` in place of `sendmux/mailbox` and change imports from `Sendmux\Mailbox\` to `Qubrics\Mailbox\`. See [Migrate from 2.x](README.md#migrate-from-2x).
+- Default URL is `https://app.qubrics.com/api/v1`. Package requires `qubrics/core` `^3.0`. Existing credentials and explicit base URLs remain supported.
+
 ## 2.1.0 (2026-09-11)
 
 - Add `WithAccessToken` factories for REST OAuth tokens and callable providers.
