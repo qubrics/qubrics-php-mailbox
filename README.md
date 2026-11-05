@@ -40,7 +40,7 @@ require __DIR__ . '/vendor/autoload.php';
 use Qubrics\Mailbox\ClientFactory;
 
 $mailboxApi = ClientFactory::createMailboxAPIApi(
-    getenv('QUBRICS_MAILBOX_API_KEY') ?: ''
+    getenv('QUBRICS_MAILBOX_API_KEY') ?: getenv('SENDMUX_MAILBOX_API_KEY') ?: null
 );
 ```
 
@@ -62,7 +62,7 @@ Use `mailboxUploadAttachment()` to upload bytes and pass the returned `blob_id` 
 
 ```php
 $client = ClientFactory::createMailboxAPIApiWithAccessToken(
-    static fn (): string => getenv('QUBRICS_ACCESS_TOKEN') ?: ''
+    static fn (): string => getenv('QUBRICS_ACCESS_TOKEN') ?: getenv('SENDMUX_ACCESS_TOKEN') ?: ''
 );
 ```
 

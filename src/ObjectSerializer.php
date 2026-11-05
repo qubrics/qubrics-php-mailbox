@@ -82,6 +82,9 @@ class ObjectSerializer
         }
 
         if (is_array($data)) {
+            if ($data === [] && $type !== null && preg_match('/^(array<|map\[)/', $type)) {
+                return (object) [];
+            }
             foreach ($data as $property => $value) {
                 $data[$property] = self::sanitizeForSerialization($value);
             }

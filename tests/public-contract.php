@@ -11,9 +11,20 @@ use Qubrics\Mailbox\Configuration;
 use Qubrics\Mailbox\Model\Connection;
 use Qubrics\Mailbox\Model\ConnectionCredential;
 use Qubrics\Mailbox\Model\ConnectionResponse;
+use Qubrics\Mailbox\Model\UpdateMailboxDraft;
 use Qubrics\Mailbox\ObjectSerializer;
 
 require dirname(__DIR__) . '/vendor/autoload.php';
+
+$baseUrls = ['QUBRICS_BASE_URL' => getenv('QUBRICS_BASE_URL'), 'SENDMUX_BASE_URL' => getenv('SENDMUX_BASE_URL')];
+register_shutdown_function(static function () use ($baseUrls): void {
+    foreach ($baseUrls as $name => $value) {
+        putenv($value === false ? $name : "$name=$value");
+    }
+});
+foreach ($baseUrls as $name => $_) {
+    putenv($name);
+}
 
 $expect = static function (bool $condition, string $message): void {
     if (!$condition) {
@@ -91,5 +102,15 @@ $expect(
     $response->getData()->getCredential()->getName() === 'Fixture',
     'Nested response data survives deserialisation'
 );
+
+foreach ([[], ['X-Project' => 'fixture']] as $headers) {
+    $draft = new UpdateMailboxDraft(['custom_headers' => $headers, 'to' => [], 'expected_revision' => 1]);
+    $wire = json_decode(json_encode(ObjectSerializer::sanitizeForSerialization($draft), JSON_THROW_ON_ERROR));
+    $expect($wire->custom_headers instanceof stdClass, 'Custom headers encode as a JSON object, including empty maps');
+    $expect((array) $wire->custom_headers === $headers, 'Custom headers retain their values');
+    $expect($wire->to === [], 'Empty recipient lists remain JSON arrays');
+}
+$omitted = ObjectSerializer::sanitizeForSerialization(new UpdateMailboxDraft(['expected_revision' => 1]));
+$expect(!property_exists($omitted, 'custom_headers'), 'Omitted custom headers remain omitted');
 
 fwrite(STDOUT, "Mailbox public contract passed\n");
