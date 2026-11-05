@@ -8,8 +8,8 @@
     "ext-curl": "*",
     "ext-json": "*",
     "ext-mbstring": "*",
-    "guzzlehttp/guzzle": "^7.10",
-    "guzzlehttp/psr7": "^2.7",
+    "guzzlehttp/guzzle": "^7.15.5",
+    "guzzlehttp/psr7": "^2.13.1",
     "qubrics/core": "^3.0"
   },
   "autoload": {

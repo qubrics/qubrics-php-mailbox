@@ -61,7 +61,7 @@ class MailboxFolderDeletedResponse implements ModelInterface, ArrayAccess, JsonS
     protected static array $openAPITypes = [
         'meta' => '\Qubrics\Mailbox\Model\ResponseMeta',
         'ok' => 'bool',
-        'data' => '\Qubrics\Mailbox\Model\MailboxFolderDeletedResponseAllOfData'
+        'data' => '\Qubrics\Mailbox\Model\MailboxDraftDeleteResponseAllOfData'
     ];
 
     /**
@@ -344,9 +344,9 @@ class MailboxFolderDeletedResponse implements ModelInterface, ArrayAccess, JsonS
     /**
      * Gets data
      *
-     * @return \Qubrics\Mailbox\Model\MailboxFolderDeletedResponseAllOfData
+     * @return \Qubrics\Mailbox\Model\MailboxDraftDeleteResponseAllOfData
      */
-    public function getData(): \Qubrics\Mailbox\Model\MailboxFolderDeletedResponseAllOfData
+    public function getData(): \Qubrics\Mailbox\Model\MailboxDraftDeleteResponseAllOfData
     {
         return $this->container['data'];
     }
@@ -354,11 +354,11 @@ class MailboxFolderDeletedResponse implements ModelInterface, ArrayAccess, JsonS
     /**
      * Sets data
      *
-     * @param \Qubrics\Mailbox\Model\MailboxFolderDeletedResponseAllOfData $data data
+     * @param \Qubrics\Mailbox\Model\MailboxDraftDeleteResponseAllOfData $data data
      *
      * @return $this
      */
-    public function setData(\Qubrics\Mailbox\Model\MailboxFolderDeletedResponseAllOfData $data): static
+    public function setData(\Qubrics\Mailbox\Model\MailboxDraftDeleteResponseAllOfData $data): static
     {
         if (is_null($data)) {
             throw new InvalidArgumentException('non-nullable data cannot be null');

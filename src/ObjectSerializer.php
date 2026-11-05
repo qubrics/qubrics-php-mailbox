@@ -509,7 +509,9 @@ class ObjectSerializer
             $discriminator = $class::DISCRIMINATOR;
             if (!empty($discriminator) && isset($data->{$discriminator}) && is_string($data->{$discriminator})) {
                 $subclass = '\Qubrics\Mailbox\Model\\' . $data->{$discriminator};
-                if (is_subclass_of($subclass, $class)) {
+                $mapping = defined($class . '::DISCRIMINATOR_MAPPING') ? $class::DISCRIMINATOR_MAPPING : [];
+                $subclass = $mapping[$data->{$discriminator}] ?? $subclass;
+                if (isset($mapping[$data->{$discriminator}]) || is_subclass_of($subclass, $class)) {
                     $class = $subclass;
                 }
             }

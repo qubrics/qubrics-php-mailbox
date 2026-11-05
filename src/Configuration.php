@@ -470,7 +470,7 @@ class Configuration
         return [
             [
                 "url" => "https://app.qubrics.com/api/v1",
-                "description" => "API v1",
+                "description" => "No description provided",
             ]
         ];
     }

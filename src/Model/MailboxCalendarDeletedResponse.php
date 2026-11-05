@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Mailbox
+ * MailboxCalendarDeletedResponse
  *
  * PHP version 8.1
  *
@@ -35,14 +35,14 @@ use ReturnTypeWillChange;
 use Qubrics\Mailbox\ObjectSerializer;
 
 /**
- * Mailbox Class Doc Comment
+ * MailboxCalendarDeletedResponse Class Doc Comment
  *
  * @package  Qubrics\Mailbox
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  * @implements ArrayAccess<string, mixed>
  */
-class Mailbox implements ModelInterface, ArrayAccess, JsonSerializable
+class MailboxCalendarDeletedResponse implements ModelInterface, ArrayAccess, JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -51,7 +51,7 @@ class Mailbox implements ModelInterface, ArrayAccess, JsonSerializable
      *
      * @var string
      */
-    protected static string $openAPIModelName = 'Mailbox';
+    protected static string $openAPIModelName = 'MailboxCalendarDeletedResponse';
 
     /**
      * Array of property to type mappings. Used for (de)serialization
@@ -59,13 +59,9 @@ class Mailbox implements ModelInterface, ArrayAccess, JsonSerializable
      * @var array<string, string>
      */
     protected static array $openAPITypes = [
-        'created_at' => 'string',
-        'display_name' => 'string',
-        'email' => 'string',
-        'id' => 'string',
-        'quota_bytes' => 'int',
-        'send_scope' => '\Qubrics\Mailbox\Model\MailboxSendScope',
-        'status' => 'string'
+        'meta' => '\Qubrics\Mailbox\Model\ResponseMeta',
+        'ok' => 'bool',
+        'data' => '\Qubrics\Mailbox\Model\MailboxCalendarEventDeletedResponseAllOfData'
     ];
 
     /**
@@ -74,13 +70,9 @@ class Mailbox implements ModelInterface, ArrayAccess, JsonSerializable
      * @var array<string, string|null>
      */
     protected static array $openAPIFormats = [
-        'created_at' => null,
-        'display_name' => null,
-        'email' => null,
-        'id' => null,
-        'quota_bytes' => null,
-        'send_scope' => null,
-        'status' => null
+        'meta' => null,
+        'ok' => null,
+        'data' => null
     ];
 
     /**
@@ -89,13 +81,9 @@ class Mailbox implements ModelInterface, ArrayAccess, JsonSerializable
      * @var array<string, bool>
      */
     protected static array $openAPINullables = [
-        'created_at' => false,
-        'display_name' => true,
-        'email' => false,
-        'id' => false,
-        'quota_bytes' => true,
-        'send_scope' => true,
-        'status' => false
+        'meta' => false,
+        'ok' => false,
+        'data' => false
     ];
 
     /**
@@ -174,13 +162,9 @@ class Mailbox implements ModelInterface, ArrayAccess, JsonSerializable
      * @var array<string, string>
      */
     protected static array $attributeMap = [
-        'created_at' => 'created_at',
-        'display_name' => 'display_name',
-        'email' => 'email',
-        'id' => 'id',
-        'quota_bytes' => 'quota_bytes',
-        'send_scope' => 'send_scope',
-        'status' => 'status'
+        'meta' => 'meta',
+        'ok' => 'ok',
+        'data' => 'data'
     ];
 
     /**
@@ -189,13 +173,9 @@ class Mailbox implements ModelInterface, ArrayAccess, JsonSerializable
      * @var array<string, string>
      */
     protected static array $setters = [
-        'created_at' => 'setCreatedAt',
-        'display_name' => 'setDisplayName',
-        'email' => 'setEmail',
-        'id' => 'setId',
-        'quota_bytes' => 'setQuotaBytes',
-        'send_scope' => 'setSendScope',
-        'status' => 'setStatus'
+        'meta' => 'setMeta',
+        'ok' => 'setOk',
+        'data' => 'setData'
     ];
 
     /**
@@ -204,13 +184,9 @@ class Mailbox implements ModelInterface, ArrayAccess, JsonSerializable
      * @var array<string, string>
      */
     protected static array $getters = [
-        'created_at' => 'getCreatedAt',
-        'display_name' => 'getDisplayName',
-        'email' => 'getEmail',
-        'id' => 'getId',
-        'quota_bytes' => 'getQuotaBytes',
-        'send_scope' => 'getSendScope',
-        'status' => 'getStatus'
+        'meta' => 'getMeta',
+        'ok' => 'getOk',
+        'data' => 'getData'
     ];
 
     /**
@@ -260,13 +236,9 @@ class Mailbox implements ModelInterface, ArrayAccess, JsonSerializable
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('created_at', $data ?? [], null);
-        $this->setIfExists('display_name', $data ?? [], null);
-        $this->setIfExists('email', $data ?? [], null);
-        $this->setIfExists('id', $data ?? [], null);
-        $this->setIfExists('quota_bytes', $data ?? [], null);
-        $this->setIfExists('send_scope', $data ?? [], null);
-        $this->setIfExists('status', $data ?? [], null);
+        $this->setIfExists('meta', $data ?? [], null);
+        $this->setIfExists('ok', $data ?? [], null);
+        $this->setIfExists('data', $data ?? [], null);
     }
 
     /**
@@ -294,26 +266,14 @@ class Mailbox implements ModelInterface, ArrayAccess, JsonSerializable
     {
         $invalidProperties = [];
 
-        if ($this->container['created_at'] === null) {
-            $invalidProperties[] = "'created_at' can't be null";
+        if ($this->container['meta'] === null) {
+            $invalidProperties[] = "'meta' can't be null";
         }
-        if ($this->container['display_name'] === null && !$this->isNullableSetToNull('display_name')) {
-            $invalidProperties[] = "'display_name' is required";
+        if ($this->container['ok'] === null) {
+            $invalidProperties[] = "'ok' can't be null";
         }
-        if ($this->container['email'] === null) {
-            $invalidProperties[] = "'email' can't be null";
-        }
-        if ($this->container['id'] === null) {
-            $invalidProperties[] = "'id' can't be null";
-        }
-        if ($this->container['quota_bytes'] === null && !$this->isNullableSetToNull('quota_bytes')) {
-            $invalidProperties[] = "'quota_bytes' is required";
-        }
-        if ($this->container['send_scope'] === null && !$this->isNullableSetToNull('send_scope')) {
-            $invalidProperties[] = "'send_scope' is required";
-        }
-        if ($this->container['status'] === null) {
-            $invalidProperties[] = "'status' can't be null";
+        if ($this->container['data'] === null) {
+            $invalidProperties[] = "'data' can't be null";
         }
         return $invalidProperties;
     }
@@ -328,211 +288,82 @@ class Mailbox implements ModelInterface, ArrayAccess, JsonSerializable
 
 
     /**
-     * Gets created_at
+     * Gets meta
      *
-     * @return string
+     * @return \Qubrics\Mailbox\Model\ResponseMeta
      */
-    public function getCreatedAt(): string
+    public function getMeta(): \Qubrics\Mailbox\Model\ResponseMeta
     {
-        return $this->container['created_at'];
+        return $this->container['meta'];
     }
 
     /**
-     * Sets created_at
+     * Sets meta
      *
-     * @param string $created_at ISO 8601 creation timestamp
+     * @param \Qubrics\Mailbox\Model\ResponseMeta $meta meta
      *
      * @return $this
      */
-    public function setCreatedAt(string $created_at): static
+    public function setMeta(\Qubrics\Mailbox\Model\ResponseMeta $meta): static
     {
-        if (is_null($created_at)) {
-            throw new InvalidArgumentException('non-nullable created_at cannot be null');
+        if (is_null($meta)) {
+            throw new InvalidArgumentException('non-nullable meta cannot be null');
         }
-        $this->container['created_at'] = $created_at;
+        $this->container['meta'] = $meta;
 
         return $this;
     }
 
     /**
-     * Gets display_name
+     * Gets ok
      *
-     * @return string|null
+     * @return bool
      */
-    public function getDisplayName(): ?string
+    public function getOk(): bool
     {
-        return $this->container['display_name'];
+        return $this->container['ok'];
     }
 
     /**
-     * Sets display_name
+     * Sets ok
      *
-     * @param string|null $display_name Optional display name shown in outbound From headers
+     * @param bool $ok ok
      *
      * @return $this
      */
-    public function setDisplayName(?string $display_name): static
+    public function setOk(bool $ok): static
     {
-        if (is_null($display_name)) {
-            array_push($this->openAPINullablesSetToNull, 'display_name');
-        } else {
-            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
-            $index = array_search('display_name', $nullablesSetToNull);
-            if ($index !== false) {
-                unset($nullablesSetToNull[$index]);
-                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
-            }
+        if (is_null($ok)) {
+            throw new InvalidArgumentException('non-nullable ok cannot be null');
         }
-        $this->container['display_name'] = $display_name;
+        $this->container['ok'] = $ok;
 
         return $this;
     }
 
     /**
-     * Gets email
+     * Gets data
      *
-     * @return string
+     * @return \Qubrics\Mailbox\Model\MailboxCalendarEventDeletedResponseAllOfData
      */
-    public function getEmail(): string
+    public function getData(): \Qubrics\Mailbox\Model\MailboxCalendarEventDeletedResponseAllOfData
     {
-        return $this->container['email'];
+        return $this->container['data'];
     }
 
     /**
-     * Sets email
+     * Sets data
      *
-     * @param string $email Mailbox email address (lowercase)
+     * @param \Qubrics\Mailbox\Model\MailboxCalendarEventDeletedResponseAllOfData $data data
      *
      * @return $this
      */
-    public function setEmail(string $email): static
+    public function setData(\Qubrics\Mailbox\Model\MailboxCalendarEventDeletedResponseAllOfData $data): static
     {
-        if (is_null($email)) {
-            throw new InvalidArgumentException('non-nullable email cannot be null');
+        if (is_null($data)) {
+            throw new InvalidArgumentException('non-nullable data cannot be null');
         }
-        $this->container['email'] = $email;
-
-        return $this;
-    }
-
-    /**
-     * Gets id
-     *
-     * @return string
-     */
-    public function getId(): string
-    {
-        return $this->container['id'];
-    }
-
-    /**
-     * Sets id
-     *
-     * @param string $id Public ID
-     *
-     * @return $this
-     */
-    public function setId(string $id): static
-    {
-        if (is_null($id)) {
-            throw new InvalidArgumentException('non-nullable id cannot be null');
-        }
-        $this->container['id'] = $id;
-
-        return $this;
-    }
-
-    /**
-     * Gets quota_bytes
-     *
-     * @return int|null
-     */
-    public function getQuotaBytes(): ?int
-    {
-        return $this->container['quota_bytes'];
-    }
-
-    /**
-     * Sets quota_bytes
-     *
-     * @param int|null $quota_bytes Storage quota in bytes. Current writable tiers are 1 GB, 5 GB, and 50 GB.
-     *
-     * @return $this
-     */
-    public function setQuotaBytes(?int $quota_bytes): static
-    {
-        if (is_null($quota_bytes)) {
-            array_push($this->openAPINullablesSetToNull, 'quota_bytes');
-        } else {
-            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
-            $index = array_search('quota_bytes', $nullablesSetToNull);
-            if ($index !== false) {
-                unset($nullablesSetToNull[$index]);
-                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
-            }
-        }
-        $this->container['quota_bytes'] = $quota_bytes;
-
-        return $this;
-    }
-
-    /**
-     * Gets send_scope
-     *
-     * @return \Qubrics\Mailbox\Model\MailboxSendScope|null
-     */
-    public function getSendScope(): ?\Qubrics\Mailbox\Model\MailboxSendScope
-    {
-        return $this->container['send_scope'];
-    }
-
-    /**
-     * Sets send_scope
-     *
-     * @param \Qubrics\Mailbox\Model\MailboxSendScope|null $send_scope send_scope
-     *
-     * @return $this
-     */
-    public function setSendScope(?\Qubrics\Mailbox\Model\MailboxSendScope $send_scope): static
-    {
-        if (is_null($send_scope)) {
-            array_push($this->openAPINullablesSetToNull, 'send_scope');
-        } else {
-            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
-            $index = array_search('send_scope', $nullablesSetToNull);
-            if ($index !== false) {
-                unset($nullablesSetToNull[$index]);
-                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
-            }
-        }
-        $this->container['send_scope'] = $send_scope;
-
-        return $this;
-    }
-
-    /**
-     * Gets status
-     *
-     * @return string
-     */
-    public function getStatus(): string
-    {
-        return $this->container['status'];
-    }
-
-    /**
-     * Sets status
-     *
-     * @param string $status active | suspended | deleted
-     *
-     * @return $this
-     */
-    public function setStatus(string $status): static
-    {
-        if (is_null($status)) {
-            throw new InvalidArgumentException('non-nullable status cannot be null');
-        }
-        $this->container['status'] = $status;
+        $this->container['data'] = $data;
 
         return $this;
     }

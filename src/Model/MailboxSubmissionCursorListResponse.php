@@ -59,7 +59,7 @@ class MailboxSubmissionCursorListResponse implements ModelInterface, ArrayAccess
      * @var array<string, string>
      */
     protected static array $openAPITypes = [
-        'meta' => '\Qubrics\Mailbox\Model\ResponseMeta',
+        'meta' => '\Qubrics\Mailbox\Model\MailboxQueryMeta',
         'ok' => 'bool',
         'data' => '\Qubrics\Mailbox\Model\MailboxSubmission[]',
         'pagination' => '\Qubrics\Mailbox\Model\CursorPagination'
@@ -300,9 +300,9 @@ class MailboxSubmissionCursorListResponse implements ModelInterface, ArrayAccess
     /**
      * Gets meta
      *
-     * @return \Qubrics\Mailbox\Model\ResponseMeta
+     * @return \Qubrics\Mailbox\Model\MailboxQueryMeta
      */
-    public function getMeta(): \Qubrics\Mailbox\Model\ResponseMeta
+    public function getMeta(): \Qubrics\Mailbox\Model\MailboxQueryMeta
     {
         return $this->container['meta'];
     }
@@ -310,11 +310,11 @@ class MailboxSubmissionCursorListResponse implements ModelInterface, ArrayAccess
     /**
      * Sets meta
      *
-     * @param \Qubrics\Mailbox\Model\ResponseMeta $meta meta
+     * @param \Qubrics\Mailbox\Model\MailboxQueryMeta $meta meta
      *
      * @return $this
      */
-    public function setMeta(\Qubrics\Mailbox\Model\ResponseMeta $meta): static
+    public function setMeta(\Qubrics\Mailbox\Model\MailboxQueryMeta $meta): static
     {
         if (is_null($meta)) {
             throw new InvalidArgumentException('non-nullable meta cannot be null');

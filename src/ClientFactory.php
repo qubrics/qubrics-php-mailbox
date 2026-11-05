@@ -15,8 +15,14 @@ use Qubrics\Core\RetryOptions;
 
 final class ClientFactory
 {
-    public static function configuration(string $apiKey, ?string $baseUrl = null): Configuration
+    public static function configuration(?string $apiKey = null, ?string $baseUrl = null): Configuration
     {
+        $qubricsApiKey = getenv('QUBRICS_API_KEY');
+        $apiKey ??= $qubricsApiKey !== false && $qubricsApiKey !== ''
+            ? $qubricsApiKey : (getenv('SENDMUX_API_KEY') ?: '');
+        $qubricsBaseUrl = getenv('QUBRICS_BASE_URL');
+        $baseUrl ??= $qubricsBaseUrl !== false && $qubricsBaseUrl !== ''
+            ? $qubricsBaseUrl : (getenv('SENDMUX_BASE_URL') ?: null);
         $configuration = new Configuration();
         if ($baseUrl !== null && $baseUrl !== '') {
             $configuration->setHost($baseUrl);
@@ -33,16 +39,16 @@ final class ClientFactory
         string|callable|null $accessToken = null
     ): ClientInterface {
         $stack = HandlerStack::create();
-        $stack->push(RetryMiddleware::create($retryOptions), 'qubrics_retry');
+        $stack->push(RetryMiddleware::create($retryOptions), 'sendmux_retry');
         if ($accessToken !== null) {
-            $stack->push(Auth::accessTokenMiddleware($accessToken), 'qubrics_oauth');
+            $stack->push(Auth::accessTokenMiddleware($accessToken), 'sendmux_oauth');
         }
 
         return new Client(['handler' => $stack, 'allow_redirects' => $accessToken === null]);
     }
 
     public static function createMailboxAPIApi(
-        string $apiKey,
+        ?string $apiKey = null,
         ?string $baseUrl = null,
         ?RetryOptions $retryOptions = null
     ): MailboxAPIApi {
@@ -58,6 +64,9 @@ final class ClientFactory
         ?string $baseUrl = null,
         ?RetryOptions $retryOptions = null
     ): MailboxAPIApi {
+        $qubricsBaseUrl = getenv('QUBRICS_BASE_URL');
+        $baseUrl ??= $qubricsBaseUrl !== false && $qubricsBaseUrl !== ''
+            ? $qubricsBaseUrl : (getenv('SENDMUX_BASE_URL') ?: null);
         $configuration = new Configuration();
         if ($baseUrl !== null && $baseUrl !== '') {
             $configuration->setHost($baseUrl);
