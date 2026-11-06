@@ -61,7 +61,7 @@ class MailboxRawBodyResponse implements ModelInterface, ArrayAccess, JsonSeriali
     protected static array $openAPITypes = [
         'meta' => '\Qubrics\Mailbox\Model\ResponseMeta',
         'ok' => 'bool',
-        'data' => '\Qubrics\Mailbox\Model\MailboxRawBodyResponseAllOfData'
+        'data' => '\Qubrics\Mailbox\Model\MailboxRawBody'
     ];
 
     /**
@@ -344,9 +344,9 @@ class MailboxRawBodyResponse implements ModelInterface, ArrayAccess, JsonSeriali
     /**
      * Gets data
      *
-     * @return \Qubrics\Mailbox\Model\MailboxRawBodyResponseAllOfData
+     * @return \Qubrics\Mailbox\Model\MailboxRawBody
      */
-    public function getData(): \Qubrics\Mailbox\Model\MailboxRawBodyResponseAllOfData
+    public function getData(): \Qubrics\Mailbox\Model\MailboxRawBody
     {
         return $this->container['data'];
     }
@@ -354,11 +354,11 @@ class MailboxRawBodyResponse implements ModelInterface, ArrayAccess, JsonSeriali
     /**
      * Sets data
      *
-     * @param \Qubrics\Mailbox\Model\MailboxRawBodyResponseAllOfData $data data
+     * @param \Qubrics\Mailbox\Model\MailboxRawBody $data data
      *
      * @return $this
      */
-    public function setData(\Qubrics\Mailbox\Model\MailboxRawBodyResponseAllOfData $data): static
+    public function setData(\Qubrics\Mailbox\Model\MailboxRawBody $data): static
     {
         if (is_null($data)) {
             throw new InvalidArgumentException('non-nullable data cannot be null');

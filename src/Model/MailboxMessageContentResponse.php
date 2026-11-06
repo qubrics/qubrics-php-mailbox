@@ -61,7 +61,7 @@ class MailboxMessageContentResponse implements ModelInterface, ArrayAccess, Json
     protected static array $openAPITypes = [
         'meta' => '\Qubrics\Mailbox\Model\ResponseMeta',
         'ok' => 'bool',
-        'data' => '\Qubrics\Mailbox\Model\MailboxMessageContentResponseAllOfData'
+        'data' => '\Qubrics\Mailbox\Model\MailboxMessageContent'
     ];
 
     /**
@@ -344,9 +344,9 @@ class MailboxMessageContentResponse implements ModelInterface, ArrayAccess, Json
     /**
      * Gets data
      *
-     * @return \Qubrics\Mailbox\Model\MailboxMessageContentResponseAllOfData
+     * @return \Qubrics\Mailbox\Model\MailboxMessageContent
      */
-    public function getData(): \Qubrics\Mailbox\Model\MailboxMessageContentResponseAllOfData
+    public function getData(): \Qubrics\Mailbox\Model\MailboxMessageContent
     {
         return $this->container['data'];
     }
@@ -354,11 +354,11 @@ class MailboxMessageContentResponse implements ModelInterface, ArrayAccess, Json
     /**
      * Sets data
      *
-     * @param \Qubrics\Mailbox\Model\MailboxMessageContentResponseAllOfData $data data
+     * @param \Qubrics\Mailbox\Model\MailboxMessageContent $data data
      *
      * @return $this
      */
-    public function setData(\Qubrics\Mailbox\Model\MailboxMessageContentResponseAllOfData $data): static
+    public function setData(\Qubrics\Mailbox\Model\MailboxMessageContent $data): static
     {
         if (is_null($data)) {
             throw new InvalidArgumentException('non-nullable data cannot be null');

@@ -60,7 +60,7 @@ class MailboxSubmissionEnvelope implements ModelInterface, ArrayAccess, JsonSeri
      */
     protected static array $openAPITypes = [
         'mail_from' => '\Qubrics\Mailbox\Model\MailboxSubmissionEnvelopeAddress',
-        'rcpt_to' => '\Qubrics\Mailbox\Model\MailboxSubmissionEnvelopeRcptToInner[]'
+        'rcpt_to' => '\Qubrics\Mailbox\Model\MailboxSubmissionEnvelopeAddress[]'
     ];
 
     /**
@@ -314,7 +314,7 @@ class MailboxSubmissionEnvelope implements ModelInterface, ArrayAccess, JsonSeri
     /**
      * Gets rcpt_to
      *
-     * @return \Qubrics\Mailbox\Model\MailboxSubmissionEnvelopeRcptToInner[]
+     * @return \Qubrics\Mailbox\Model\MailboxSubmissionEnvelopeAddress[]
      */
     public function getRcptTo(): array
     {
@@ -324,7 +324,7 @@ class MailboxSubmissionEnvelope implements ModelInterface, ArrayAccess, JsonSeri
     /**
      * Sets rcpt_to
      *
-     * @param \Qubrics\Mailbox\Model\MailboxSubmissionEnvelopeRcptToInner[] $rcpt_to rcpt_to
+     * @param \Qubrics\Mailbox\Model\MailboxSubmissionEnvelopeAddress[] $rcpt_to rcpt_to
      *
      * @return $this
      */

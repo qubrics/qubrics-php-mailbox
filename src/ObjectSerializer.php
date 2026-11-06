@@ -82,6 +82,9 @@ class ObjectSerializer
         }
 
         if (is_array($data)) {
+            if ($data === [] && $type !== null && preg_match('/^(array<|map\[)/', $type)) {
+                return (object) [];
+            }
             foreach ($data as $property => $value) {
                 $data[$property] = self::sanitizeForSerialization($value);
             }
@@ -509,7 +512,9 @@ class ObjectSerializer
             $discriminator = $class::DISCRIMINATOR;
             if (!empty($discriminator) && isset($data->{$discriminator}) && is_string($data->{$discriminator})) {
                 $subclass = '\Qubrics\Mailbox\Model\\' . $data->{$discriminator};
-                if (is_subclass_of($subclass, $class)) {
+                $mapping = defined($class . '::DISCRIMINATOR_MAPPING') ? $class::DISCRIMINATOR_MAPPING : [];
+                $subclass = $mapping[$data->{$discriminator}] ?? $subclass;
+                if (isset($mapping[$data->{$discriminator}]) || is_subclass_of($subclass, $class)) {
                     $class = $subclass;
                 }
             }

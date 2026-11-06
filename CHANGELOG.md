@@ -1,11 +1,26 @@
 # Changelog
 
-## Unreleased
+## 3.0.0 (2026-11-06)
+
+### Qubrics rename
+
+- Publish as `qubrics/mailbox` at 3.0.0 with `Qubrics\` namespaces and Qubrics service defaults.
+- Keep existing credential prefixes, OAuth/custom URL configuration and compatibility wire names.
 
 ### Changed
 
-- Breaking: install `qubrics/mailbox` in place of `sendmux/mailbox` and change imports from `Sendmux\Mailbox\` to `Qubrics\Mailbox\`. See [Migrate from 2.x](README.md#migrate-from-2x).
-- Default URL is `https://app.qubrics.com/api/v1`. Package requires `qubrics/core` `^3.0`. Existing credentials and explicit base URLs remain supported.
+- Breaking: successful `mailboxGetChanges()` responses use `MailboxChangesResponse` or `MailboxTypedChangesResponse` instead of `MailboxGetChanges200Response`. Update typed wrappers and response handling for the two data models; see the [3.0 migration guide](https://github.com/Sendmux/sendmux-sdk/blob/main/packages/php/UPGRADING-3.0.md).
+- Breaking: `mailboxListThreadMessages()` uses `MailboxThreadMessageSummaryCursorListResponse` instead of `MailboxMessageSummaryCursorListResponse`, including HTTP-info and resolved asynchronous forms. Five existing list responses replace `ResponseMeta` getter/setter types with operation-specific metadata classes. Update typed consumers and manual fixtures using the [response and metadata migration steps](https://github.com/Sendmux/sendmux-sdk/blob/main/packages/php/UPGRADING-3.0.md#upgrade-your-application); thread-message metadata requires `thread_id` and permits absent `sync_state`.
+- Apply the same response-model selection to HTTP-info and asynchronous calls. Reject success bodies that match neither declared model instead of producing an incomplete model.
+- Breaking: `MailboxRealtimeMessage::getBody()` and `setBody()` use `MailboxRealtimeMessageBody` instead of `MailboxRealtimeMessageAllOfBody`, and the unused `Sendmux\Mailbox\Model\Mailbox` class is removed; `mailboxGetMe()` still returns `MailboxMeItemResponse` with `MailboxMe` data. The wire format is unchanged: the API now publishes `MailboxMe`, `MailboxMessage`, `MailboxRealtimeMessage`, and `MailboxThread` as flat schemas instead of `allOf` compositions. See the [3.0 migration guide](https://github.com/Sendmux/sendmux-sdk/blob/main/packages/php/UPGRADING-3.0.md#upgrade-your-application).
+
+### Fixed
+
+- Reject a JSON `null` changes-response body with the documented `UnexpectedValueException` instead of PHP `Error`, across ordinary, HTTP-info, and asynchronous calls.
+
+### Security
+
+- Require Guzzle `^7.15.5`, PSR7 `^2.13.1`, and core `^3.0` for HTTP security fixes. If you use a custom persistent cookie jar, follow the [upgrade warning](README.md#installation) before updating.
 
 ## 2.1.0 (2026-09-11)
 

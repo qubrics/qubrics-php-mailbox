@@ -61,7 +61,7 @@ class MailboxThreadContentResponse implements ModelInterface, ArrayAccess, JsonS
     protected static array $openAPITypes = [
         'meta' => '\Qubrics\Mailbox\Model\MailboxThreadContentMeta',
         'ok' => 'bool',
-        'data' => '\Qubrics\Mailbox\Model\MailboxThreadContentResponseAllOfData[]',
+        'data' => '\Qubrics\Mailbox\Model\MailboxMessageContent[]',
         'pagination' => '\Qubrics\Mailbox\Model\CursorPagination'
     ];
 
@@ -354,7 +354,7 @@ class MailboxThreadContentResponse implements ModelInterface, ArrayAccess, JsonS
     /**
      * Gets data
      *
-     * @return \Qubrics\Mailbox\Model\MailboxThreadContentResponseAllOfData[]
+     * @return \Qubrics\Mailbox\Model\MailboxMessageContent[]
      */
     public function getData(): array
     {
@@ -364,7 +364,7 @@ class MailboxThreadContentResponse implements ModelInterface, ArrayAccess, JsonS
     /**
      * Sets data
      *
-     * @param \Qubrics\Mailbox\Model\MailboxThreadContentResponseAllOfData[] $data data
+     * @param \Qubrics\Mailbox\Model\MailboxMessageContent[] $data data
      *
      * @return $this
      */

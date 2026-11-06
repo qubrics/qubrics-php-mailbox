@@ -1,7 +1,7 @@
 <?php
 
 /**
- * MailboxRealtimeMessageAllOfBody
+ * MailboxCalendarEventCreated
  *
  * PHP version 8.1
  *
@@ -35,14 +35,14 @@ use ReturnTypeWillChange;
 use Qubrics\Mailbox\ObjectSerializer;
 
 /**
- * MailboxRealtimeMessageAllOfBody Class Doc Comment
+ * MailboxCalendarEventCreated Class Doc Comment
  *
  * @package  Qubrics\Mailbox
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  * @implements ArrayAccess<string, mixed>
  */
-class MailboxRealtimeMessageAllOfBody implements ModelInterface, ArrayAccess, JsonSerializable
+class MailboxCalendarEventCreated implements ModelInterface, ArrayAccess, JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -51,7 +51,7 @@ class MailboxRealtimeMessageAllOfBody implements ModelInterface, ArrayAccess, Js
      *
      * @var string
      */
-    protected static string $openAPIModelName = 'MailboxRealtimeMessage_allOf_body';
+    protected static string $openAPIModelName = 'MailboxCalendarEventCreated';
 
     /**
      * Array of property to type mappings. Used for (de)serialization
@@ -59,10 +59,9 @@ class MailboxRealtimeMessageAllOfBody implements ModelInterface, ArrayAccess, Js
      * @var array<string, string>
      */
     protected static array $openAPITypes = [
-        'html' => 'string',
-        'is_truncated' => 'bool',
-        'max_bytes' => 'int',
-        'text' => 'string'
+        'id' => 'string',
+        'mailbox_id' => 'string',
+        'uid' => 'string'
     ];
 
     /**
@@ -71,10 +70,9 @@ class MailboxRealtimeMessageAllOfBody implements ModelInterface, ArrayAccess, Js
      * @var array<string, string|null>
      */
     protected static array $openAPIFormats = [
-        'html' => null,
-        'is_truncated' => null,
-        'max_bytes' => null,
-        'text' => null
+        'id' => null,
+        'mailbox_id' => null,
+        'uid' => null
     ];
 
     /**
@@ -83,10 +81,9 @@ class MailboxRealtimeMessageAllOfBody implements ModelInterface, ArrayAccess, Js
      * @var array<string, bool>
      */
     protected static array $openAPINullables = [
-        'html' => true,
-        'is_truncated' => false,
-        'max_bytes' => false,
-        'text' => true
+        'id' => false,
+        'mailbox_id' => false,
+        'uid' => false
     ];
 
     /**
@@ -165,10 +162,9 @@ class MailboxRealtimeMessageAllOfBody implements ModelInterface, ArrayAccess, Js
      * @var array<string, string>
      */
     protected static array $attributeMap = [
-        'html' => 'html',
-        'is_truncated' => 'is_truncated',
-        'max_bytes' => 'max_bytes',
-        'text' => 'text'
+        'id' => 'id',
+        'mailbox_id' => 'mailbox_id',
+        'uid' => 'uid'
     ];
 
     /**
@@ -177,10 +173,9 @@ class MailboxRealtimeMessageAllOfBody implements ModelInterface, ArrayAccess, Js
      * @var array<string, string>
      */
     protected static array $setters = [
-        'html' => 'setHtml',
-        'is_truncated' => 'setIsTruncated',
-        'max_bytes' => 'setMaxBytes',
-        'text' => 'setText'
+        'id' => 'setId',
+        'mailbox_id' => 'setMailboxId',
+        'uid' => 'setUid'
     ];
 
     /**
@@ -189,10 +184,9 @@ class MailboxRealtimeMessageAllOfBody implements ModelInterface, ArrayAccess, Js
      * @var array<string, string>
      */
     protected static array $getters = [
-        'html' => 'getHtml',
-        'is_truncated' => 'getIsTruncated',
-        'max_bytes' => 'getMaxBytes',
-        'text' => 'getText'
+        'id' => 'getId',
+        'mailbox_id' => 'getMailboxId',
+        'uid' => 'getUid'
     ];
 
     /**
@@ -242,10 +236,9 @@ class MailboxRealtimeMessageAllOfBody implements ModelInterface, ArrayAccess, Js
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('html', $data ?? [], null);
-        $this->setIfExists('is_truncated', $data ?? [], null);
-        $this->setIfExists('max_bytes', $data ?? [], null);
-        $this->setIfExists('text', $data ?? [], null);
+        $this->setIfExists('id', $data ?? [], null);
+        $this->setIfExists('mailbox_id', $data ?? [], null);
+        $this->setIfExists('uid', $data ?? [], null);
     }
 
     /**
@@ -273,17 +266,26 @@ class MailboxRealtimeMessageAllOfBody implements ModelInterface, ArrayAccess, Js
     {
         $invalidProperties = [];
 
-        if ($this->container['html'] === null && !$this->isNullableSetToNull('html')) {
-            $invalidProperties[] = "'html' is required";
+        if ($this->container['id'] === null) {
+            $invalidProperties[] = "'id' can't be null";
         }
-        if ($this->container['is_truncated'] === null) {
-            $invalidProperties[] = "'is_truncated' can't be null";
+        if (!is_null($this->container['id']) && (mb_strlen($this->container['id']) > 4096)) {
+            $invalidProperties[] = "invalid value for 'id', the character length must be smaller than or equal to 4096.";
         }
-        if ($this->container['max_bytes'] === null) {
-            $invalidProperties[] = "'max_bytes' can't be null";
+
+        if (!is_null($this->container['id']) && (mb_strlen($this->container['id']) < 1)) {
+            $invalidProperties[] = "invalid value for 'id', the character length must be bigger than or equal to 1.";
         }
-        if ($this->container['text'] === null && !$this->isNullableSetToNull('text')) {
-            $invalidProperties[] = "'text' is required";
+
+        if (!is_null($this->container['id']) && !preg_match("/^[A-Za-z0-9_-]+$/", $this->container['id'])) {
+            $invalidProperties[] = "invalid value for 'id', must be conform to the pattern /^[A-Za-z0-9_-]+$/.";
+        }
+
+        if ($this->container['mailbox_id'] === null) {
+            $invalidProperties[] = "'mailbox_id' can't be null";
+        }
+        if ($this->container['uid'] === null) {
+            $invalidProperties[] = "'uid' can't be null";
         }
         return $invalidProperties;
     }
@@ -298,123 +300,92 @@ class MailboxRealtimeMessageAllOfBody implements ModelInterface, ArrayAccess, Js
 
 
     /**
-     * Gets html
+     * Gets id
      *
-     * @return string|null
+     * @return string
      */
-    public function getHtml(): ?string
+    public function getId(): string
     {
-        return $this->container['html'];
+        return $this->container['id'];
     }
 
     /**
-     * Sets html
+     * Sets id
      *
-     * @param string|null $html html
+     * @param string $id Opaque identifier scoped to the selected mailbox.
      *
      * @return $this
      */
-    public function setHtml(?string $html): static
+    public function setId(string $id): static
     {
-        if (is_null($html)) {
-            array_push($this->openAPINullablesSetToNull, 'html');
-        } else {
-            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
-            $index = array_search('html', $nullablesSetToNull);
-            if ($index !== false) {
-                unset($nullablesSetToNull[$index]);
-                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
-            }
+        if (is_null($id)) {
+            throw new InvalidArgumentException('non-nullable id cannot be null');
         }
-        $this->container['html'] = $html;
+        if ((mb_strlen($id) > 4096)) {
+            throw new InvalidArgumentException('invalid length for $id when calling MailboxCalendarEventCreated., must be smaller than or equal to 4096.');
+        }
+        if ((mb_strlen($id) < 1)) {
+            throw new InvalidArgumentException('invalid length for $id when calling MailboxCalendarEventCreated., must be bigger than or equal to 1.');
+        }
+        if ((!preg_match("/^[A-Za-z0-9_-]+$/", ObjectSerializer::toString($id)))) {
+            throw new InvalidArgumentException("invalid value for \$id when calling MailboxCalendarEventCreated., must conform to the pattern /^[A-Za-z0-9_-]+$/.");
+        }
+
+        $this->container['id'] = $id;
 
         return $this;
     }
 
     /**
-     * Gets is_truncated
+     * Gets mailbox_id
      *
-     * @return bool
+     * @return string
      */
-    public function getIsTruncated(): bool
+    public function getMailboxId(): string
     {
-        return $this->container['is_truncated'];
+        return $this->container['mailbox_id'];
     }
 
     /**
-     * Sets is_truncated
+     * Sets mailbox_id
      *
-     * @param bool $is_truncated is_truncated
+     * @param string $mailbox_id mailbox_id
      *
      * @return $this
      */
-    public function setIsTruncated(bool $is_truncated): static
+    public function setMailboxId(string $mailbox_id): static
     {
-        if (is_null($is_truncated)) {
-            throw new InvalidArgumentException('non-nullable is_truncated cannot be null');
+        if (is_null($mailbox_id)) {
+            throw new InvalidArgumentException('non-nullable mailbox_id cannot be null');
         }
-        $this->container['is_truncated'] = $is_truncated;
+        $this->container['mailbox_id'] = $mailbox_id;
 
         return $this;
     }
 
     /**
-     * Gets max_bytes
+     * Gets uid
      *
-     * @return int
+     * @return string
      */
-    public function getMaxBytes(): int
+    public function getUid(): string
     {
-        return $this->container['max_bytes'];
+        return $this->container['uid'];
     }
 
     /**
-     * Sets max_bytes
+     * Sets uid
      *
-     * @param int $max_bytes max_bytes
+     * @param string $uid uid
      *
      * @return $this
      */
-    public function setMaxBytes(int $max_bytes): static
+    public function setUid(string $uid): static
     {
-        if (is_null($max_bytes)) {
-            throw new InvalidArgumentException('non-nullable max_bytes cannot be null');
+        if (is_null($uid)) {
+            throw new InvalidArgumentException('non-nullable uid cannot be null');
         }
-        $this->container['max_bytes'] = $max_bytes;
-
-        return $this;
-    }
-
-    /**
-     * Gets text
-     *
-     * @return string|null
-     */
-    public function getText(): ?string
-    {
-        return $this->container['text'];
-    }
-
-    /**
-     * Sets text
-     *
-     * @param string|null $text text
-     *
-     * @return $this
-     */
-    public function setText(?string $text): static
-    {
-        if (is_null($text)) {
-            array_push($this->openAPINullablesSetToNull, 'text');
-        } else {
-            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
-            $index = array_search('text', $nullablesSetToNull);
-            if ($index !== false) {
-                unset($nullablesSetToNull[$index]);
-                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
-            }
-        }
-        $this->container['text'] = $text;
+        $this->container['uid'] = $uid;
 
         return $this;
     }

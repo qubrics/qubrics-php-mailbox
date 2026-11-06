@@ -84,13 +84,34 @@ class MailboxAPIApi
         'mailboxBatchUpdateMessages' => [
             'application/json',
         ],
+        'mailboxControlDraftSchedule' => [
+            'application/json',
+        ],
         'mailboxCountMessages' => [
             'application/json',
         ],
         'mailboxCreateAttachmentUpload' => [
             'application/json',
         ],
+        'mailboxCreateCalendar' => [
+            'application/json',
+        ],
+        'mailboxCreateCalendarEvent' => [
+            'application/json',
+        ],
+        'mailboxCreateDraft' => [
+            'application/json',
+        ],
         'mailboxCreateFolder' => [
+            'application/json',
+        ],
+        'mailboxDeleteCalendar' => [
+            'application/json',
+        ],
+        'mailboxDeleteCalendarEvent' => [
+            'application/json',
+        ],
+        'mailboxDeleteDraft' => [
             'application/json',
         ],
         'mailboxDeleteFolder' => [
@@ -99,10 +120,28 @@ class MailboxAPIApi
         'mailboxDeleteMessage' => [
             'application/json',
         ],
+        'mailboxDownloadRawMessage' => [
+            'application/json',
+        ],
+        'mailboxGetAttachmentText' => [
+            'application/json',
+        ],
+        'mailboxGetCalendar' => [
+            'application/json',
+        ],
+        'mailboxGetCalendarEvent' => [
+            'application/json',
+        ],
+        'mailboxGetCalendarEventChanges' => [
+            'application/json',
+        ],
         'mailboxGetChanges' => [
             'application/json',
         ],
         'mailboxGetConnection' => [
+            'application/json',
+        ],
+        'mailboxGetDraft' => [
             'application/json',
         ],
         'mailboxGetFolder' => [
@@ -126,6 +165,9 @@ class MailboxAPIApi
         'mailboxGetQuotaChanges' => [
             'application/json',
         ],
+        'mailboxGetSenderChoices' => [
+            'application/json',
+        ],
         'mailboxGetSession' => [
             'application/json',
         ],
@@ -144,7 +186,16 @@ class MailboxAPIApi
         'mailboxListBody' => [
             'application/json',
         ],
+        'mailboxListCalendarEvents' => [
+            'application/json',
+        ],
+        'mailboxListCalendars' => [
+            'application/json',
+        ],
         'mailboxListContent' => [
+            'application/json',
+        ],
+        'mailboxListDrafts' => [
             'application/json',
         ],
         'mailboxListFolders' => [
@@ -180,13 +231,25 @@ class MailboxAPIApi
         'mailboxQueryMessageChanges' => [
             'application/json',
         ],
+        'mailboxRequestAttachmentText' => [
+            'application/json',
+        ],
         'mailboxSearchMessageSnippets' => [
+            'application/json',
+        ],
+        'mailboxSendDraft' => [
             'application/json',
         ],
         'mailboxSendMessage' => [
             'application/json',
         ],
         'mailboxStreamEvents' => [
+            'application/json',
+        ],
+        'mailboxUpdateCalendarEvent' => [
+            'application/json',
+        ],
+        'mailboxUpdateDraft' => [
             'application/json',
         ],
         'mailboxUpdateFolder' => [
@@ -1321,6 +1384,515 @@ class MailboxAPIApi
     }
 
     /**
+     * Operation mailboxControlDraftSchedule
+     *
+     * Reschedule or cancel a saved draft send
+     *
+     * @param  string $draft_id Stable draft ID. (required)
+     * @param  \Qubrics\Mailbox\Model\ControlMailboxDraftSchedule $control_mailbox_draft_schedule control_mailbox_draft_schedule (required)
+     * @param  string|null $if_match Current draft ETag; both revision and schedule version remain required. (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxControlDraftSchedule'] to see the possible values for this operation
+     *
+     * @throws ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws InvalidArgumentException
+     * @return \Qubrics\Mailbox\Model\MailboxDraftResponse|\Qubrics\Mailbox\Model\ApiError
+     */
+    public function mailboxControlDraftSchedule(
+        string $draft_id,
+        \Qubrics\Mailbox\Model\ControlMailboxDraftSchedule $control_mailbox_draft_schedule,
+        ?string $if_match = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxControlDraftSchedule'][0]
+    ): \Qubrics\Mailbox\Model\MailboxDraftResponse|\Qubrics\Mailbox\Model\ApiError {
+        list($response) = $this->mailboxControlDraftScheduleWithHttpInfo(
+            $draft_id,
+            $control_mailbox_draft_schedule,
+            $if_match,
+            $mailbox_id,
+            $contentType
+        );
+        return $response;
+    }
+
+    /**
+     * Operation mailboxControlDraftScheduleWithHttpInfo
+     *
+     * Reschedule or cancel a saved draft send
+     *
+     * @param  string $draft_id Stable draft ID. (required)
+     * @param  \Qubrics\Mailbox\Model\ControlMailboxDraftSchedule $control_mailbox_draft_schedule control_mailbox_draft_schedule (required)
+     * @param  string|null $if_match Current draft ETag; both revision and schedule version remain required. (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxControlDraftSchedule'] to see the possible values for this operation
+     *
+     * @throws ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws InvalidArgumentException
+     * @return array of \Qubrics\Mailbox\Model\MailboxDraftResponse|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function mailboxControlDraftScheduleWithHttpInfo(
+        string $draft_id,
+        \Qubrics\Mailbox\Model\ControlMailboxDraftSchedule $control_mailbox_draft_schedule,
+        ?string $if_match = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxControlDraftSchedule'][0]
+    ): array {
+        $request = $this->mailboxControlDraftScheduleRequest(
+            $draft_id,
+            $control_mailbox_draft_schedule,
+            $if_match,
+            $mailbox_id,
+            $contentType
+        );
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            switch ($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\MailboxDraftResponse',
+                        $request,
+                        $response,
+                    );
+                case 400:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 401:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 403:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 409:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 413:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 422:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 429:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 500:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 503:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+            }
+
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Qubrics\Mailbox\Model\MailboxDraftResponse',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\MailboxDraftResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 409:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 413:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 422:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 429:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 503:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation mailboxControlDraftScheduleAsync
+     *
+     * Reschedule or cancel a saved draft send
+     *
+     * @param  string $draft_id Stable draft ID. (required)
+     * @param  \Qubrics\Mailbox\Model\ControlMailboxDraftSchedule $control_mailbox_draft_schedule control_mailbox_draft_schedule (required)
+     * @param  string|null $if_match Current draft ETag; both revision and schedule version remain required. (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxControlDraftSchedule'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return PromiseInterface
+     */
+    public function mailboxControlDraftScheduleAsync(
+        string $draft_id,
+        \Qubrics\Mailbox\Model\ControlMailboxDraftSchedule $control_mailbox_draft_schedule,
+        ?string $if_match = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxControlDraftSchedule'][0]
+    ): PromiseInterface {
+        return $this->mailboxControlDraftScheduleAsyncWithHttpInfo(
+            $draft_id,
+            $control_mailbox_draft_schedule,
+            $if_match,
+            $mailbox_id,
+            $contentType
+        )
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation mailboxControlDraftScheduleAsyncWithHttpInfo
+     *
+     * Reschedule or cancel a saved draft send
+     *
+     * @param  string $draft_id Stable draft ID. (required)
+     * @param  \Qubrics\Mailbox\Model\ControlMailboxDraftSchedule $control_mailbox_draft_schedule control_mailbox_draft_schedule (required)
+     * @param  string|null $if_match Current draft ETag; both revision and schedule version remain required. (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxControlDraftSchedule'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return PromiseInterface
+     */
+    public function mailboxControlDraftScheduleAsyncWithHttpInfo(
+        string $draft_id,
+        \Qubrics\Mailbox\Model\ControlMailboxDraftSchedule $control_mailbox_draft_schedule,
+        ?string $if_match = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxControlDraftSchedule'][0]
+    ): PromiseInterface {
+        $returnType = '\Qubrics\Mailbox\Model\MailboxDraftResponse';
+        $request = $this->mailboxControlDraftScheduleRequest(
+            $draft_id,
+            $control_mailbox_draft_schedule,
+            $if_match,
+            $mailbox_id,
+            $contentType
+        );
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType, $request) {
+                    return $this->handleResponseWithDataType($returnType, $request, $response);
+                },
+                function ($exception) {
+                    if ($exception instanceof RequestException) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            $exception->getResponse() ? $exception->getResponse()->getHeaders() : null,
+                            $exception->getResponse() ? (string) $exception->getResponse()->getBody() : null
+                        );
+                    }
+
+                    if ($exception instanceof ConnectException) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            null,
+                            null
+                        );
+                    }
+
+                    if ($exception instanceof \Throwable) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            null,
+                            null
+                        );
+                    }
+
+                    throw new ApiException('[0] Unknown API error', 0, null, null);
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'mailboxControlDraftSchedule'
+     *
+     * @param  string $draft_id Stable draft ID. (required)
+     * @param  \Qubrics\Mailbox\Model\ControlMailboxDraftSchedule $control_mailbox_draft_schedule control_mailbox_draft_schedule (required)
+     * @param  string|null $if_match Current draft ETag; both revision and schedule version remain required. (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxControlDraftSchedule'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function mailboxControlDraftScheduleRequest(
+        string $draft_id,
+        \Qubrics\Mailbox\Model\ControlMailboxDraftSchedule $control_mailbox_draft_schedule,
+        ?string $if_match = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxControlDraftSchedule'][0]
+    ): Request {
+
+        // verify the required parameter 'draft_id' is set
+        if ($draft_id === null || (is_array($draft_id) && count($draft_id) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $draft_id when calling mailboxControlDraftSchedule'
+            );
+        }
+
+        // verify the required parameter 'control_mailbox_draft_schedule' is set
+        if ($control_mailbox_draft_schedule === null || (is_array($control_mailbox_draft_schedule) && count($control_mailbox_draft_schedule) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $control_mailbox_draft_schedule when calling mailboxControlDraftSchedule'
+            );
+        }
+
+
+
+
+        $resourcePath = '/mailbox/drafts/{draftId}/schedule';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $mailbox_id,
+            'mailbox_id', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+        // header params
+        if ($if_match !== null) {
+            $headerParams['If-Match'] = ObjectSerializer::toHeaderValue($if_match);
+        }
+
+        // path params
+        if ($draft_id !== null) {
+            $resourcePath = str_replace(
+                '{draftId}',
+                ObjectSerializer::toPathValue($draft_id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($control_mailbox_draft_schedule)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($control_mailbox_draft_schedule));
+            } else {
+                $httpBody = $control_mailbox_draft_schedule;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires OAuth (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        // this endpoint requires Bearer (API Key) authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PATCH',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation mailboxCountMessages
      *
      * Count mailbox messages
@@ -2447,6 +3019,1461 @@ class MailboxAPIApi
     }
 
     /**
+     * Operation mailboxCreateCalendar
+     *
+     * Create a private calendar
+     *
+     * @param  \Qubrics\Mailbox\Model\CreateCalendarBody $create_calendar_body create_calendar_body (required)
+     * @param  string|null $idempotency_key idempotency_key (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxCreateCalendar'] to see the possible values for this operation
+     *
+     * @throws ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws InvalidArgumentException
+     * @return \Qubrics\Mailbox\Model\MailboxCalendarCreatedResponse|\Qubrics\Mailbox\Model\ApiError
+     */
+    public function mailboxCreateCalendar(
+        \Qubrics\Mailbox\Model\CreateCalendarBody $create_calendar_body,
+        ?string $idempotency_key = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxCreateCalendar'][0]
+    ): \Qubrics\Mailbox\Model\MailboxCalendarCreatedResponse|\Qubrics\Mailbox\Model\ApiError {
+        list($response) = $this->mailboxCreateCalendarWithHttpInfo(
+            $create_calendar_body,
+            $idempotency_key,
+            $mailbox_id,
+            $contentType
+        );
+        return $response;
+    }
+
+    /**
+     * Operation mailboxCreateCalendarWithHttpInfo
+     *
+     * Create a private calendar
+     *
+     * @param  \Qubrics\Mailbox\Model\CreateCalendarBody $create_calendar_body create_calendar_body (required)
+     * @param  string|null $idempotency_key idempotency_key (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxCreateCalendar'] to see the possible values for this operation
+     *
+     * @throws ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws InvalidArgumentException
+     * @return array of \Qubrics\Mailbox\Model\MailboxCalendarCreatedResponse|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function mailboxCreateCalendarWithHttpInfo(
+        \Qubrics\Mailbox\Model\CreateCalendarBody $create_calendar_body,
+        ?string $idempotency_key = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxCreateCalendar'][0]
+    ): array {
+        $request = $this->mailboxCreateCalendarRequest(
+            $create_calendar_body,
+            $idempotency_key,
+            $mailbox_id,
+            $contentType
+        );
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            switch ($statusCode) {
+                case 201:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\MailboxCalendarCreatedResponse',
+                        $request,
+                        $response,
+                    );
+                case 400:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 401:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 403:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 409:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 413:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 422:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 429:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 500:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 503:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+            }
+
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Qubrics\Mailbox\Model\MailboxCalendarCreatedResponse',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 201:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\MailboxCalendarCreatedResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 409:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 413:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 422:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 429:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 503:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation mailboxCreateCalendarAsync
+     *
+     * Create a private calendar
+     *
+     * @param  \Qubrics\Mailbox\Model\CreateCalendarBody $create_calendar_body create_calendar_body (required)
+     * @param  string|null $idempotency_key idempotency_key (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxCreateCalendar'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return PromiseInterface
+     */
+    public function mailboxCreateCalendarAsync(
+        \Qubrics\Mailbox\Model\CreateCalendarBody $create_calendar_body,
+        ?string $idempotency_key = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxCreateCalendar'][0]
+    ): PromiseInterface {
+        return $this->mailboxCreateCalendarAsyncWithHttpInfo(
+            $create_calendar_body,
+            $idempotency_key,
+            $mailbox_id,
+            $contentType
+        )
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation mailboxCreateCalendarAsyncWithHttpInfo
+     *
+     * Create a private calendar
+     *
+     * @param  \Qubrics\Mailbox\Model\CreateCalendarBody $create_calendar_body create_calendar_body (required)
+     * @param  string|null $idempotency_key idempotency_key (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxCreateCalendar'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return PromiseInterface
+     */
+    public function mailboxCreateCalendarAsyncWithHttpInfo(
+        \Qubrics\Mailbox\Model\CreateCalendarBody $create_calendar_body,
+        ?string $idempotency_key = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxCreateCalendar'][0]
+    ): PromiseInterface {
+        $returnType = '\Qubrics\Mailbox\Model\MailboxCalendarCreatedResponse';
+        $request = $this->mailboxCreateCalendarRequest(
+            $create_calendar_body,
+            $idempotency_key,
+            $mailbox_id,
+            $contentType
+        );
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType, $request) {
+                    return $this->handleResponseWithDataType($returnType, $request, $response);
+                },
+                function ($exception) {
+                    if ($exception instanceof RequestException) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            $exception->getResponse() ? $exception->getResponse()->getHeaders() : null,
+                            $exception->getResponse() ? (string) $exception->getResponse()->getBody() : null
+                        );
+                    }
+
+                    if ($exception instanceof ConnectException) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            null,
+                            null
+                        );
+                    }
+
+                    if ($exception instanceof \Throwable) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            null,
+                            null
+                        );
+                    }
+
+                    throw new ApiException('[0] Unknown API error', 0, null, null);
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'mailboxCreateCalendar'
+     *
+     * @param  \Qubrics\Mailbox\Model\CreateCalendarBody $create_calendar_body create_calendar_body (required)
+     * @param  string|null $idempotency_key idempotency_key (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxCreateCalendar'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function mailboxCreateCalendarRequest(
+        \Qubrics\Mailbox\Model\CreateCalendarBody $create_calendar_body,
+        ?string $idempotency_key = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxCreateCalendar'][0]
+    ): Request {
+
+        // verify the required parameter 'create_calendar_body' is set
+        if ($create_calendar_body === null || (is_array($create_calendar_body) && count($create_calendar_body) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $create_calendar_body when calling mailboxCreateCalendar'
+            );
+        }
+
+        if ($idempotency_key !== null && strlen($idempotency_key) > 255) {
+            throw new InvalidArgumentException('invalid length for "$idempotency_key" when calling MailboxAPIApi.mailboxCreateCalendar, must be smaller than or equal to 255.');
+        }
+        if ($idempotency_key !== null && strlen($idempotency_key) < 1) {
+            throw new InvalidArgumentException('invalid length for "$idempotency_key" when calling MailboxAPIApi.mailboxCreateCalendar, must be bigger than or equal to 1.');
+        }
+
+
+
+        $resourcePath = '/mailbox/calendars';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $mailbox_id,
+            'mailbox_id', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+        // header params
+        if ($idempotency_key !== null) {
+            $headerParams['Idempotency-Key'] = ObjectSerializer::toHeaderValue($idempotency_key);
+        }
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($create_calendar_body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($create_calendar_body));
+            } else {
+                $httpBody = $create_calendar_body;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires OAuth (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        // this endpoint requires Bearer (API Key) authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation mailboxCreateCalendarEvent
+     *
+     * Create a non-sending event
+     *
+     * @param  \Qubrics\Mailbox\Model\CreateCalendarEventBody $create_calendar_event_body create_calendar_event_body (required)
+     * @param  string|null $idempotency_key idempotency_key (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxCreateCalendarEvent'] to see the possible values for this operation
+     *
+     * @throws ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws InvalidArgumentException
+     * @return \Qubrics\Mailbox\Model\MailboxCalendarEventCreatedResponse|\Qubrics\Mailbox\Model\ApiError
+     */
+    public function mailboxCreateCalendarEvent(
+        \Qubrics\Mailbox\Model\CreateCalendarEventBody $create_calendar_event_body,
+        ?string $idempotency_key = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxCreateCalendarEvent'][0]
+    ): \Qubrics\Mailbox\Model\MailboxCalendarEventCreatedResponse|\Qubrics\Mailbox\Model\ApiError {
+        list($response) = $this->mailboxCreateCalendarEventWithHttpInfo(
+            $create_calendar_event_body,
+            $idempotency_key,
+            $mailbox_id,
+            $contentType
+        );
+        return $response;
+    }
+
+    /**
+     * Operation mailboxCreateCalendarEventWithHttpInfo
+     *
+     * Create a non-sending event
+     *
+     * @param  \Qubrics\Mailbox\Model\CreateCalendarEventBody $create_calendar_event_body create_calendar_event_body (required)
+     * @param  string|null $idempotency_key idempotency_key (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxCreateCalendarEvent'] to see the possible values for this operation
+     *
+     * @throws ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws InvalidArgumentException
+     * @return array of \Qubrics\Mailbox\Model\MailboxCalendarEventCreatedResponse|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function mailboxCreateCalendarEventWithHttpInfo(
+        \Qubrics\Mailbox\Model\CreateCalendarEventBody $create_calendar_event_body,
+        ?string $idempotency_key = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxCreateCalendarEvent'][0]
+    ): array {
+        $request = $this->mailboxCreateCalendarEventRequest(
+            $create_calendar_event_body,
+            $idempotency_key,
+            $mailbox_id,
+            $contentType
+        );
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            switch ($statusCode) {
+                case 201:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\MailboxCalendarEventCreatedResponse',
+                        $request,
+                        $response,
+                    );
+                case 400:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 401:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 403:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 409:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 413:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 422:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 429:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 500:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 503:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+            }
+
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Qubrics\Mailbox\Model\MailboxCalendarEventCreatedResponse',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 201:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\MailboxCalendarEventCreatedResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 409:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 413:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 422:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 429:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 503:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation mailboxCreateCalendarEventAsync
+     *
+     * Create a non-sending event
+     *
+     * @param  \Qubrics\Mailbox\Model\CreateCalendarEventBody $create_calendar_event_body create_calendar_event_body (required)
+     * @param  string|null $idempotency_key idempotency_key (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxCreateCalendarEvent'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return PromiseInterface
+     */
+    public function mailboxCreateCalendarEventAsync(
+        \Qubrics\Mailbox\Model\CreateCalendarEventBody $create_calendar_event_body,
+        ?string $idempotency_key = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxCreateCalendarEvent'][0]
+    ): PromiseInterface {
+        return $this->mailboxCreateCalendarEventAsyncWithHttpInfo(
+            $create_calendar_event_body,
+            $idempotency_key,
+            $mailbox_id,
+            $contentType
+        )
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation mailboxCreateCalendarEventAsyncWithHttpInfo
+     *
+     * Create a non-sending event
+     *
+     * @param  \Qubrics\Mailbox\Model\CreateCalendarEventBody $create_calendar_event_body create_calendar_event_body (required)
+     * @param  string|null $idempotency_key idempotency_key (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxCreateCalendarEvent'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return PromiseInterface
+     */
+    public function mailboxCreateCalendarEventAsyncWithHttpInfo(
+        \Qubrics\Mailbox\Model\CreateCalendarEventBody $create_calendar_event_body,
+        ?string $idempotency_key = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxCreateCalendarEvent'][0]
+    ): PromiseInterface {
+        $returnType = '\Qubrics\Mailbox\Model\MailboxCalendarEventCreatedResponse';
+        $request = $this->mailboxCreateCalendarEventRequest(
+            $create_calendar_event_body,
+            $idempotency_key,
+            $mailbox_id,
+            $contentType
+        );
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType, $request) {
+                    return $this->handleResponseWithDataType($returnType, $request, $response);
+                },
+                function ($exception) {
+                    if ($exception instanceof RequestException) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            $exception->getResponse() ? $exception->getResponse()->getHeaders() : null,
+                            $exception->getResponse() ? (string) $exception->getResponse()->getBody() : null
+                        );
+                    }
+
+                    if ($exception instanceof ConnectException) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            null,
+                            null
+                        );
+                    }
+
+                    if ($exception instanceof \Throwable) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            null,
+                            null
+                        );
+                    }
+
+                    throw new ApiException('[0] Unknown API error', 0, null, null);
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'mailboxCreateCalendarEvent'
+     *
+     * @param  \Qubrics\Mailbox\Model\CreateCalendarEventBody $create_calendar_event_body create_calendar_event_body (required)
+     * @param  string|null $idempotency_key idempotency_key (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxCreateCalendarEvent'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function mailboxCreateCalendarEventRequest(
+        \Qubrics\Mailbox\Model\CreateCalendarEventBody $create_calendar_event_body,
+        ?string $idempotency_key = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxCreateCalendarEvent'][0]
+    ): Request {
+
+        // verify the required parameter 'create_calendar_event_body' is set
+        if ($create_calendar_event_body === null || (is_array($create_calendar_event_body) && count($create_calendar_event_body) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $create_calendar_event_body when calling mailboxCreateCalendarEvent'
+            );
+        }
+
+        if ($idempotency_key !== null && strlen($idempotency_key) > 255) {
+            throw new InvalidArgumentException('invalid length for "$idempotency_key" when calling MailboxAPIApi.mailboxCreateCalendarEvent, must be smaller than or equal to 255.');
+        }
+        if ($idempotency_key !== null && strlen($idempotency_key) < 1) {
+            throw new InvalidArgumentException('invalid length for "$idempotency_key" when calling MailboxAPIApi.mailboxCreateCalendarEvent, must be bigger than or equal to 1.');
+        }
+
+
+
+        $resourcePath = '/mailbox/calendar-events';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $mailbox_id,
+            'mailbox_id', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+        // header params
+        if ($idempotency_key !== null) {
+            $headerParams['Idempotency-Key'] = ObjectSerializer::toHeaderValue($idempotency_key);
+        }
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($create_calendar_event_body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($create_calendar_event_body));
+            } else {
+                $httpBody = $create_calendar_event_body;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires OAuth (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        // this endpoint requires Bearer (API Key) authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation mailboxCreateDraft
+     *
+     * Create a saved draft
+     *
+     * @param  \Qubrics\Mailbox\Model\CreateMailboxDraft $create_mailbox_draft create_mailbox_draft (required)
+     * @param  string|null $idempotency_key Reuse this key when retrying the same create request. (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxCreateDraft'] to see the possible values for this operation
+     *
+     * @throws ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws InvalidArgumentException
+     * @return \Qubrics\Mailbox\Model\MailboxDraftResponse|\Qubrics\Mailbox\Model\ApiError
+     */
+    public function mailboxCreateDraft(
+        \Qubrics\Mailbox\Model\CreateMailboxDraft $create_mailbox_draft,
+        ?string $idempotency_key = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxCreateDraft'][0]
+    ): \Qubrics\Mailbox\Model\MailboxDraftResponse|\Qubrics\Mailbox\Model\ApiError {
+        list($response) = $this->mailboxCreateDraftWithHttpInfo(
+            $create_mailbox_draft,
+            $idempotency_key,
+            $mailbox_id,
+            $contentType
+        );
+        return $response;
+    }
+
+    /**
+     * Operation mailboxCreateDraftWithHttpInfo
+     *
+     * Create a saved draft
+     *
+     * @param  \Qubrics\Mailbox\Model\CreateMailboxDraft $create_mailbox_draft create_mailbox_draft (required)
+     * @param  string|null $idempotency_key Reuse this key when retrying the same create request. (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxCreateDraft'] to see the possible values for this operation
+     *
+     * @throws ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws InvalidArgumentException
+     * @return array of \Qubrics\Mailbox\Model\MailboxDraftResponse|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function mailboxCreateDraftWithHttpInfo(
+        \Qubrics\Mailbox\Model\CreateMailboxDraft $create_mailbox_draft,
+        ?string $idempotency_key = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxCreateDraft'][0]
+    ): array {
+        $request = $this->mailboxCreateDraftRequest(
+            $create_mailbox_draft,
+            $idempotency_key,
+            $mailbox_id,
+            $contentType
+        );
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            switch ($statusCode) {
+                case 201:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\MailboxDraftResponse',
+                        $request,
+                        $response,
+                    );
+                case 400:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 401:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 403:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 409:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 413:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 422:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 429:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 500:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 503:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+            }
+
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Qubrics\Mailbox\Model\MailboxDraftResponse',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 201:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\MailboxDraftResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 409:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 413:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 422:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 429:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 503:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation mailboxCreateDraftAsync
+     *
+     * Create a saved draft
+     *
+     * @param  \Qubrics\Mailbox\Model\CreateMailboxDraft $create_mailbox_draft create_mailbox_draft (required)
+     * @param  string|null $idempotency_key Reuse this key when retrying the same create request. (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxCreateDraft'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return PromiseInterface
+     */
+    public function mailboxCreateDraftAsync(
+        \Qubrics\Mailbox\Model\CreateMailboxDraft $create_mailbox_draft,
+        ?string $idempotency_key = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxCreateDraft'][0]
+    ): PromiseInterface {
+        return $this->mailboxCreateDraftAsyncWithHttpInfo(
+            $create_mailbox_draft,
+            $idempotency_key,
+            $mailbox_id,
+            $contentType
+        )
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation mailboxCreateDraftAsyncWithHttpInfo
+     *
+     * Create a saved draft
+     *
+     * @param  \Qubrics\Mailbox\Model\CreateMailboxDraft $create_mailbox_draft create_mailbox_draft (required)
+     * @param  string|null $idempotency_key Reuse this key when retrying the same create request. (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxCreateDraft'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return PromiseInterface
+     */
+    public function mailboxCreateDraftAsyncWithHttpInfo(
+        \Qubrics\Mailbox\Model\CreateMailboxDraft $create_mailbox_draft,
+        ?string $idempotency_key = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxCreateDraft'][0]
+    ): PromiseInterface {
+        $returnType = '\Qubrics\Mailbox\Model\MailboxDraftResponse';
+        $request = $this->mailboxCreateDraftRequest(
+            $create_mailbox_draft,
+            $idempotency_key,
+            $mailbox_id,
+            $contentType
+        );
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType, $request) {
+                    return $this->handleResponseWithDataType($returnType, $request, $response);
+                },
+                function ($exception) {
+                    if ($exception instanceof RequestException) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            $exception->getResponse() ? $exception->getResponse()->getHeaders() : null,
+                            $exception->getResponse() ? (string) $exception->getResponse()->getBody() : null
+                        );
+                    }
+
+                    if ($exception instanceof ConnectException) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            null,
+                            null
+                        );
+                    }
+
+                    if ($exception instanceof \Throwable) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            null,
+                            null
+                        );
+                    }
+
+                    throw new ApiException('[0] Unknown API error', 0, null, null);
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'mailboxCreateDraft'
+     *
+     * @param  \Qubrics\Mailbox\Model\CreateMailboxDraft $create_mailbox_draft create_mailbox_draft (required)
+     * @param  string|null $idempotency_key Reuse this key when retrying the same create request. (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxCreateDraft'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function mailboxCreateDraftRequest(
+        \Qubrics\Mailbox\Model\CreateMailboxDraft $create_mailbox_draft,
+        ?string $idempotency_key = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxCreateDraft'][0]
+    ): Request {
+
+        // verify the required parameter 'create_mailbox_draft' is set
+        if ($create_mailbox_draft === null || (is_array($create_mailbox_draft) && count($create_mailbox_draft) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $create_mailbox_draft when calling mailboxCreateDraft'
+            );
+        }
+
+        if ($idempotency_key !== null && strlen($idempotency_key) > 255) {
+            throw new InvalidArgumentException('invalid length for "$idempotency_key" when calling MailboxAPIApi.mailboxCreateDraft, must be smaller than or equal to 255.');
+        }
+
+
+
+        $resourcePath = '/mailbox/drafts';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $mailbox_id,
+            'mailbox_id', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+        // header params
+        if ($idempotency_key !== null) {
+            $headerParams['Idempotency-Key'] = ObjectSerializer::toHeaderValue($idempotency_key);
+        }
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($create_mailbox_draft)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($create_mailbox_draft));
+            } else {
+                $httpBody = $create_mailbox_draft;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires OAuth (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        // this endpoint requires Bearer (API Key) authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation mailboxCreateFolder
      *
      * Create a mailbox folder
@@ -2797,6 +4824,1485 @@ class MailboxAPIApi
         $query = ObjectSerializer::buildQuery($queryParams);
         return new Request(
             'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation mailboxDeleteCalendar
+     *
+     * Delete an empty calendar
+     *
+     * @param  string $calendar_id calendar_id (required)
+     * @param  string $if_match if_match (required)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxDeleteCalendar'] to see the possible values for this operation
+     *
+     * @throws ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws InvalidArgumentException
+     * @return \Qubrics\Mailbox\Model\MailboxCalendarDeletedResponse|\Qubrics\Mailbox\Model\ApiError
+     */
+    public function mailboxDeleteCalendar(
+        string $calendar_id,
+        string $if_match,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxDeleteCalendar'][0]
+    ): \Qubrics\Mailbox\Model\MailboxCalendarDeletedResponse|\Qubrics\Mailbox\Model\ApiError {
+        list($response) = $this->mailboxDeleteCalendarWithHttpInfo(
+            $calendar_id,
+            $if_match,
+            $mailbox_id,
+            $contentType
+        );
+        return $response;
+    }
+
+    /**
+     * Operation mailboxDeleteCalendarWithHttpInfo
+     *
+     * Delete an empty calendar
+     *
+     * @param  string $calendar_id calendar_id (required)
+     * @param  string $if_match if_match (required)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxDeleteCalendar'] to see the possible values for this operation
+     *
+     * @throws ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws InvalidArgumentException
+     * @return array of \Qubrics\Mailbox\Model\MailboxCalendarDeletedResponse|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function mailboxDeleteCalendarWithHttpInfo(
+        string $calendar_id,
+        string $if_match,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxDeleteCalendar'][0]
+    ): array {
+        $request = $this->mailboxDeleteCalendarRequest(
+            $calendar_id,
+            $if_match,
+            $mailbox_id,
+            $contentType
+        );
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            switch ($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\MailboxCalendarDeletedResponse',
+                        $request,
+                        $response,
+                    );
+                case 400:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 401:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 403:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 409:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 413:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 422:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 429:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 500:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 503:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+            }
+
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Qubrics\Mailbox\Model\MailboxCalendarDeletedResponse',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\MailboxCalendarDeletedResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 409:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 413:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 422:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 429:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 503:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation mailboxDeleteCalendarAsync
+     *
+     * Delete an empty calendar
+     *
+     * @param  string $calendar_id calendar_id (required)
+     * @param  string $if_match if_match (required)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxDeleteCalendar'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return PromiseInterface
+     */
+    public function mailboxDeleteCalendarAsync(
+        string $calendar_id,
+        string $if_match,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxDeleteCalendar'][0]
+    ): PromiseInterface {
+        return $this->mailboxDeleteCalendarAsyncWithHttpInfo(
+            $calendar_id,
+            $if_match,
+            $mailbox_id,
+            $contentType
+        )
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation mailboxDeleteCalendarAsyncWithHttpInfo
+     *
+     * Delete an empty calendar
+     *
+     * @param  string $calendar_id calendar_id (required)
+     * @param  string $if_match if_match (required)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxDeleteCalendar'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return PromiseInterface
+     */
+    public function mailboxDeleteCalendarAsyncWithHttpInfo(
+        string $calendar_id,
+        string $if_match,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxDeleteCalendar'][0]
+    ): PromiseInterface {
+        $returnType = '\Qubrics\Mailbox\Model\MailboxCalendarDeletedResponse';
+        $request = $this->mailboxDeleteCalendarRequest(
+            $calendar_id,
+            $if_match,
+            $mailbox_id,
+            $contentType
+        );
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType, $request) {
+                    return $this->handleResponseWithDataType($returnType, $request, $response);
+                },
+                function ($exception) {
+                    if ($exception instanceof RequestException) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            $exception->getResponse() ? $exception->getResponse()->getHeaders() : null,
+                            $exception->getResponse() ? (string) $exception->getResponse()->getBody() : null
+                        );
+                    }
+
+                    if ($exception instanceof ConnectException) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            null,
+                            null
+                        );
+                    }
+
+                    if ($exception instanceof \Throwable) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            null,
+                            null
+                        );
+                    }
+
+                    throw new ApiException('[0] Unknown API error', 0, null, null);
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'mailboxDeleteCalendar'
+     *
+     * @param  string $calendar_id calendar_id (required)
+     * @param  string $if_match if_match (required)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxDeleteCalendar'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function mailboxDeleteCalendarRequest(
+        string $calendar_id,
+        string $if_match,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxDeleteCalendar'][0]
+    ): Request {
+
+        // verify the required parameter 'calendar_id' is set
+        if ($calendar_id === null || (is_array($calendar_id) && count($calendar_id) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $calendar_id when calling mailboxDeleteCalendar'
+            );
+        }
+        if (strlen($calendar_id) > 4096) {
+            throw new InvalidArgumentException('invalid length for "$calendar_id" when calling MailboxAPIApi.mailboxDeleteCalendar, must be smaller than or equal to 4096.');
+        }
+        if (strlen($calendar_id) < 1) {
+            throw new InvalidArgumentException('invalid length for "$calendar_id" when calling MailboxAPIApi.mailboxDeleteCalendar, must be bigger than or equal to 1.');
+        }
+        if (!preg_match("/^[A-Za-z0-9_-]+$/", $calendar_id)) {
+            throw new InvalidArgumentException("invalid value for \"calendar_id\" when calling MailboxAPIApi.mailboxDeleteCalendar, must conform to the pattern /^[A-Za-z0-9_-]+$/.");
+        }
+
+        // verify the required parameter 'if_match' is set
+        if ($if_match === null || (is_array($if_match) && count($if_match) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $if_match when calling mailboxDeleteCalendar'
+            );
+        }
+        if (strlen($if_match) < 1) {
+            throw new InvalidArgumentException('invalid length for "$if_match" when calling MailboxAPIApi.mailboxDeleteCalendar, must be bigger than or equal to 1.');
+        }
+
+
+
+        $resourcePath = '/mailbox/calendars/{calendar_id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $mailbox_id,
+            'mailbox_id', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+        // header params
+        if ($if_match !== null) {
+            $headerParams['If-Match'] = ObjectSerializer::toHeaderValue($if_match);
+        }
+
+        // path params
+        if ($calendar_id !== null) {
+            $resourcePath = str_replace(
+                '{calendar_id}',
+                ObjectSerializer::toPathValue($calendar_id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires OAuth (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        // this endpoint requires Bearer (API Key) authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'DELETE',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation mailboxDeleteCalendarEvent
+     *
+     * Delete a non-sending event
+     *
+     * @param  string $event_id event_id (required)
+     * @param  string $if_match if_match (required)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxDeleteCalendarEvent'] to see the possible values for this operation
+     *
+     * @throws ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws InvalidArgumentException
+     * @return \Qubrics\Mailbox\Model\MailboxCalendarEventDeletedResponse|\Qubrics\Mailbox\Model\ApiError
+     */
+    public function mailboxDeleteCalendarEvent(
+        string $event_id,
+        string $if_match,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxDeleteCalendarEvent'][0]
+    ): \Qubrics\Mailbox\Model\MailboxCalendarEventDeletedResponse|\Qubrics\Mailbox\Model\ApiError {
+        list($response) = $this->mailboxDeleteCalendarEventWithHttpInfo(
+            $event_id,
+            $if_match,
+            $mailbox_id,
+            $contentType
+        );
+        return $response;
+    }
+
+    /**
+     * Operation mailboxDeleteCalendarEventWithHttpInfo
+     *
+     * Delete a non-sending event
+     *
+     * @param  string $event_id event_id (required)
+     * @param  string $if_match if_match (required)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxDeleteCalendarEvent'] to see the possible values for this operation
+     *
+     * @throws ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws InvalidArgumentException
+     * @return array of \Qubrics\Mailbox\Model\MailboxCalendarEventDeletedResponse|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function mailboxDeleteCalendarEventWithHttpInfo(
+        string $event_id,
+        string $if_match,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxDeleteCalendarEvent'][0]
+    ): array {
+        $request = $this->mailboxDeleteCalendarEventRequest(
+            $event_id,
+            $if_match,
+            $mailbox_id,
+            $contentType
+        );
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            switch ($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\MailboxCalendarEventDeletedResponse',
+                        $request,
+                        $response,
+                    );
+                case 400:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 401:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 403:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 409:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 413:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 422:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 429:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 500:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 503:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+            }
+
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Qubrics\Mailbox\Model\MailboxCalendarEventDeletedResponse',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\MailboxCalendarEventDeletedResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 409:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 413:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 422:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 429:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 503:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation mailboxDeleteCalendarEventAsync
+     *
+     * Delete a non-sending event
+     *
+     * @param  string $event_id event_id (required)
+     * @param  string $if_match if_match (required)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxDeleteCalendarEvent'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return PromiseInterface
+     */
+    public function mailboxDeleteCalendarEventAsync(
+        string $event_id,
+        string $if_match,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxDeleteCalendarEvent'][0]
+    ): PromiseInterface {
+        return $this->mailboxDeleteCalendarEventAsyncWithHttpInfo(
+            $event_id,
+            $if_match,
+            $mailbox_id,
+            $contentType
+        )
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation mailboxDeleteCalendarEventAsyncWithHttpInfo
+     *
+     * Delete a non-sending event
+     *
+     * @param  string $event_id event_id (required)
+     * @param  string $if_match if_match (required)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxDeleteCalendarEvent'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return PromiseInterface
+     */
+    public function mailboxDeleteCalendarEventAsyncWithHttpInfo(
+        string $event_id,
+        string $if_match,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxDeleteCalendarEvent'][0]
+    ): PromiseInterface {
+        $returnType = '\Qubrics\Mailbox\Model\MailboxCalendarEventDeletedResponse';
+        $request = $this->mailboxDeleteCalendarEventRequest(
+            $event_id,
+            $if_match,
+            $mailbox_id,
+            $contentType
+        );
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType, $request) {
+                    return $this->handleResponseWithDataType($returnType, $request, $response);
+                },
+                function ($exception) {
+                    if ($exception instanceof RequestException) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            $exception->getResponse() ? $exception->getResponse()->getHeaders() : null,
+                            $exception->getResponse() ? (string) $exception->getResponse()->getBody() : null
+                        );
+                    }
+
+                    if ($exception instanceof ConnectException) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            null,
+                            null
+                        );
+                    }
+
+                    if ($exception instanceof \Throwable) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            null,
+                            null
+                        );
+                    }
+
+                    throw new ApiException('[0] Unknown API error', 0, null, null);
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'mailboxDeleteCalendarEvent'
+     *
+     * @param  string $event_id event_id (required)
+     * @param  string $if_match if_match (required)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxDeleteCalendarEvent'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function mailboxDeleteCalendarEventRequest(
+        string $event_id,
+        string $if_match,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxDeleteCalendarEvent'][0]
+    ): Request {
+
+        // verify the required parameter 'event_id' is set
+        if ($event_id === null || (is_array($event_id) && count($event_id) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $event_id when calling mailboxDeleteCalendarEvent'
+            );
+        }
+        if (strlen($event_id) > 4096) {
+            throw new InvalidArgumentException('invalid length for "$event_id" when calling MailboxAPIApi.mailboxDeleteCalendarEvent, must be smaller than or equal to 4096.');
+        }
+        if (strlen($event_id) < 1) {
+            throw new InvalidArgumentException('invalid length for "$event_id" when calling MailboxAPIApi.mailboxDeleteCalendarEvent, must be bigger than or equal to 1.');
+        }
+        if (!preg_match("/^[A-Za-z0-9_-]+$/", $event_id)) {
+            throw new InvalidArgumentException("invalid value for \"event_id\" when calling MailboxAPIApi.mailboxDeleteCalendarEvent, must conform to the pattern /^[A-Za-z0-9_-]+$/.");
+        }
+
+        // verify the required parameter 'if_match' is set
+        if ($if_match === null || (is_array($if_match) && count($if_match) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $if_match when calling mailboxDeleteCalendarEvent'
+            );
+        }
+        if (strlen($if_match) < 1) {
+            throw new InvalidArgumentException('invalid length for "$if_match" when calling MailboxAPIApi.mailboxDeleteCalendarEvent, must be bigger than or equal to 1.');
+        }
+
+
+
+        $resourcePath = '/mailbox/calendar-events/{event_id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $mailbox_id,
+            'mailbox_id', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+        // header params
+        if ($if_match !== null) {
+            $headerParams['If-Match'] = ObjectSerializer::toHeaderValue($if_match);
+        }
+
+        // path params
+        if ($event_id !== null) {
+            $resourcePath = str_replace(
+                '{event_id}',
+                ObjectSerializer::toPathValue($event_id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires OAuth (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        // this endpoint requires Bearer (API Key) authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'DELETE',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation mailboxDeleteDraft
+     *
+     * Delete a saved draft
+     *
+     * @param  string $draft_id Stable draft ID. (required)
+     * @param  string|null $if_match Delete only if this is still the current draft. (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxDeleteDraft'] to see the possible values for this operation
+     *
+     * @throws ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws InvalidArgumentException
+     * @return \Qubrics\Mailbox\Model\MailboxDraftDeleteResponse|\Qubrics\Mailbox\Model\ApiError
+     */
+    public function mailboxDeleteDraft(
+        string $draft_id,
+        ?string $if_match = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxDeleteDraft'][0]
+    ): \Qubrics\Mailbox\Model\MailboxDraftDeleteResponse|\Qubrics\Mailbox\Model\ApiError {
+        list($response) = $this->mailboxDeleteDraftWithHttpInfo(
+            $draft_id,
+            $if_match,
+            $mailbox_id,
+            $contentType
+        );
+        return $response;
+    }
+
+    /**
+     * Operation mailboxDeleteDraftWithHttpInfo
+     *
+     * Delete a saved draft
+     *
+     * @param  string $draft_id Stable draft ID. (required)
+     * @param  string|null $if_match Delete only if this is still the current draft. (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxDeleteDraft'] to see the possible values for this operation
+     *
+     * @throws ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws InvalidArgumentException
+     * @return array of \Qubrics\Mailbox\Model\MailboxDraftDeleteResponse|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function mailboxDeleteDraftWithHttpInfo(
+        string $draft_id,
+        ?string $if_match = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxDeleteDraft'][0]
+    ): array {
+        $request = $this->mailboxDeleteDraftRequest(
+            $draft_id,
+            $if_match,
+            $mailbox_id,
+            $contentType
+        );
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            switch ($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\MailboxDraftDeleteResponse',
+                        $request,
+                        $response,
+                    );
+                case 400:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 401:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 403:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 409:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 413:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 422:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 429:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 500:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 503:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+            }
+
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Qubrics\Mailbox\Model\MailboxDraftDeleteResponse',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\MailboxDraftDeleteResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 409:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 413:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 422:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 429:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 503:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation mailboxDeleteDraftAsync
+     *
+     * Delete a saved draft
+     *
+     * @param  string $draft_id Stable draft ID. (required)
+     * @param  string|null $if_match Delete only if this is still the current draft. (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxDeleteDraft'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return PromiseInterface
+     */
+    public function mailboxDeleteDraftAsync(
+        string $draft_id,
+        ?string $if_match = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxDeleteDraft'][0]
+    ): PromiseInterface {
+        return $this->mailboxDeleteDraftAsyncWithHttpInfo(
+            $draft_id,
+            $if_match,
+            $mailbox_id,
+            $contentType
+        )
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation mailboxDeleteDraftAsyncWithHttpInfo
+     *
+     * Delete a saved draft
+     *
+     * @param  string $draft_id Stable draft ID. (required)
+     * @param  string|null $if_match Delete only if this is still the current draft. (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxDeleteDraft'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return PromiseInterface
+     */
+    public function mailboxDeleteDraftAsyncWithHttpInfo(
+        string $draft_id,
+        ?string $if_match = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxDeleteDraft'][0]
+    ): PromiseInterface {
+        $returnType = '\Qubrics\Mailbox\Model\MailboxDraftDeleteResponse';
+        $request = $this->mailboxDeleteDraftRequest(
+            $draft_id,
+            $if_match,
+            $mailbox_id,
+            $contentType
+        );
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType, $request) {
+                    return $this->handleResponseWithDataType($returnType, $request, $response);
+                },
+                function ($exception) {
+                    if ($exception instanceof RequestException) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            $exception->getResponse() ? $exception->getResponse()->getHeaders() : null,
+                            $exception->getResponse() ? (string) $exception->getResponse()->getBody() : null
+                        );
+                    }
+
+                    if ($exception instanceof ConnectException) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            null,
+                            null
+                        );
+                    }
+
+                    if ($exception instanceof \Throwable) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            null,
+                            null
+                        );
+                    }
+
+                    throw new ApiException('[0] Unknown API error', 0, null, null);
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'mailboxDeleteDraft'
+     *
+     * @param  string $draft_id Stable draft ID. (required)
+     * @param  string|null $if_match Delete only if this is still the current draft. (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxDeleteDraft'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function mailboxDeleteDraftRequest(
+        string $draft_id,
+        ?string $if_match = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxDeleteDraft'][0]
+    ): Request {
+
+        // verify the required parameter 'draft_id' is set
+        if ($draft_id === null || (is_array($draft_id) && count($draft_id) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $draft_id when calling mailboxDeleteDraft'
+            );
+        }
+
+
+
+
+        $resourcePath = '/mailbox/drafts/{draftId}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $mailbox_id,
+            'mailbox_id', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+        // header params
+        if ($if_match !== null) {
+            $headerParams['If-Match'] = ObjectSerializer::toHeaderValue($if_match);
+        }
+
+        // path params
+        if ($draft_id !== null) {
+            $resourcePath = str_replace(
+                '{draftId}',
+                ObjectSerializer::toPathValue($draft_id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires OAuth (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        // this endpoint requires Bearer (API Key) authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'DELETE',
             $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody
@@ -3552,6 +7058,2443 @@ class MailboxAPIApi
     }
 
     /**
+     * Operation mailboxDownloadRawMessage
+     *
+     * Download the original message
+     *
+     * @param  string $message_id message_id (required)
+     * @param  string|null $if_none_match if_none_match (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxDownloadRawMessage'] to see the possible values for this operation
+     *
+     * @throws ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws InvalidArgumentException
+     * @return \SplFileObject|\Qubrics\Mailbox\Model\ApiError|null
+     */
+    public function mailboxDownloadRawMessage(
+        string $message_id,
+        ?string $if_none_match = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxDownloadRawMessage'][0]
+    ): \SplFileObject|\Qubrics\Mailbox\Model\ApiError|null {
+        list($response) = $this->mailboxDownloadRawMessageWithHttpInfo(
+            $message_id,
+            $if_none_match,
+            $mailbox_id,
+            $contentType
+        );
+        return $response;
+    }
+
+    /**
+     * Operation mailboxDownloadRawMessageWithHttpInfo
+     *
+     * Download the original message
+     *
+     * @param  string $message_id message_id (required)
+     * @param  string|null $if_none_match if_none_match (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxDownloadRawMessage'] to see the possible values for this operation
+     *
+     * @throws ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws InvalidArgumentException
+     * @return array of \SplFileObject|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function mailboxDownloadRawMessageWithHttpInfo(
+        string $message_id,
+        ?string $if_none_match = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxDownloadRawMessage'][0]
+    ): array {
+        $request = $this->mailboxDownloadRawMessageRequest(
+            $message_id,
+            $if_none_match,
+            $mailbox_id,
+            $contentType
+        );
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            switch ($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\SplFileObject',
+                        $request,
+                        $response,
+                    );
+                case 304:
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                case 401:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 403:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 429:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 500:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 503:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+            }
+
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\SplFileObject',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\SplFileObject',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 429:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 503:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation mailboxDownloadRawMessageAsync
+     *
+     * Download the original message
+     *
+     * @param  string $message_id message_id (required)
+     * @param  string|null $if_none_match if_none_match (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxDownloadRawMessage'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return PromiseInterface
+     */
+    public function mailboxDownloadRawMessageAsync(
+        string $message_id,
+        ?string $if_none_match = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxDownloadRawMessage'][0]
+    ): PromiseInterface {
+        return $this->mailboxDownloadRawMessageAsyncWithHttpInfo(
+            $message_id,
+            $if_none_match,
+            $mailbox_id,
+            $contentType
+        )
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation mailboxDownloadRawMessageAsyncWithHttpInfo
+     *
+     * Download the original message
+     *
+     * @param  string $message_id message_id (required)
+     * @param  string|null $if_none_match if_none_match (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxDownloadRawMessage'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return PromiseInterface
+     */
+    public function mailboxDownloadRawMessageAsyncWithHttpInfo(
+        string $message_id,
+        ?string $if_none_match = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxDownloadRawMessage'][0]
+    ): PromiseInterface {
+        $returnType = '\SplFileObject';
+        $request = $this->mailboxDownloadRawMessageRequest(
+            $message_id,
+            $if_none_match,
+            $mailbox_id,
+            $contentType
+        );
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType, $request) {
+                    if ($response->getStatusCode() === 304) {
+                        return [null, $response->getStatusCode(), $response->getHeaders()];
+                    }
+
+                    return $this->handleResponseWithDataType($returnType, $request, $response);
+                },
+                function ($exception) {
+                    if ($exception instanceof RequestException) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            $exception->getResponse() ? $exception->getResponse()->getHeaders() : null,
+                            $exception->getResponse() ? (string) $exception->getResponse()->getBody() : null
+                        );
+                    }
+
+                    if ($exception instanceof ConnectException) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            null,
+                            null
+                        );
+                    }
+
+                    if ($exception instanceof \Throwable) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            null,
+                            null
+                        );
+                    }
+
+                    throw new ApiException('[0] Unknown API error', 0, null, null);
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'mailboxDownloadRawMessage'
+     *
+     * @param  string $message_id message_id (required)
+     * @param  string|null $if_none_match if_none_match (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxDownloadRawMessage'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function mailboxDownloadRawMessageRequest(
+        string $message_id,
+        ?string $if_none_match = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxDownloadRawMessage'][0]
+    ): Request {
+
+        // verify the required parameter 'message_id' is set
+        if ($message_id === null || (is_array($message_id) && count($message_id) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $message_id when calling mailboxDownloadRawMessage'
+            );
+        }
+
+
+
+
+        $resourcePath = '/mailbox/messages/{message_id}/raw';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $mailbox_id,
+            'mailbox_id', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+        // header params
+        if ($if_none_match !== null) {
+            $headerParams['If-None-Match'] = ObjectSerializer::toHeaderValue($if_none_match);
+        }
+
+        // path params
+        if ($message_id !== null) {
+            $resourcePath = str_replace(
+                '{message_id}',
+                ObjectSerializer::toPathValue($message_id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['message/rfc822', 'application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires OAuth (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        // this endpoint requires Bearer (API Key) authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation mailboxGetAttachmentText
+     *
+     * Read attachment text
+     *
+     * @param  string $message_id Message ID in the selected mailbox. (required)
+     * @param  string $attachment_id Attachment ID from that message. (required)
+     * @param  int|null $max_bytes Maximum UTF-8 text bytes returned. Default 262144; maximum 1048576. Applies to cached results too. (optional)
+     * @param  string|null $if_none_match Return 304 when the authorised response is unchanged. (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxGetAttachmentText'] to see the possible values for this operation
+     *
+     * @throws ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws InvalidArgumentException
+     * @return \Qubrics\Mailbox\Model\MailboxAttachmentTextResponse|\Qubrics\Mailbox\Model\ApiError|null
+     */
+    public function mailboxGetAttachmentText(
+        string $message_id,
+        string $attachment_id,
+        ?int $max_bytes = null,
+        ?string $if_none_match = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxGetAttachmentText'][0]
+    ): \Qubrics\Mailbox\Model\MailboxAttachmentTextResponse|\Qubrics\Mailbox\Model\ApiError|null {
+        list($response) = $this->mailboxGetAttachmentTextWithHttpInfo(
+            $message_id,
+            $attachment_id,
+            $max_bytes,
+            $if_none_match,
+            $mailbox_id,
+            $contentType
+        );
+        return $response;
+    }
+
+    /**
+     * Operation mailboxGetAttachmentTextWithHttpInfo
+     *
+     * Read attachment text
+     *
+     * @param  string $message_id Message ID in the selected mailbox. (required)
+     * @param  string $attachment_id Attachment ID from that message. (required)
+     * @param  int|null $max_bytes Maximum UTF-8 text bytes returned. Default 262144; maximum 1048576. Applies to cached results too. (optional)
+     * @param  string|null $if_none_match Return 304 when the authorised response is unchanged. (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxGetAttachmentText'] to see the possible values for this operation
+     *
+     * @throws ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws InvalidArgumentException
+     * @return array of \Qubrics\Mailbox\Model\MailboxAttachmentTextResponse|\Qubrics\Mailbox\Model\MailboxAttachmentTextResponse|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function mailboxGetAttachmentTextWithHttpInfo(
+        string $message_id,
+        string $attachment_id,
+        ?int $max_bytes = null,
+        ?string $if_none_match = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxGetAttachmentText'][0]
+    ): array {
+        $request = $this->mailboxGetAttachmentTextRequest(
+            $message_id,
+            $attachment_id,
+            $max_bytes,
+            $if_none_match,
+            $mailbox_id,
+            $contentType
+        );
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            switch ($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\MailboxAttachmentTextResponse',
+                        $request,
+                        $response,
+                    );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\MailboxAttachmentTextResponse',
+                        $request,
+                        $response,
+                    );
+                case 304:
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                case 400:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 401:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 403:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 429:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 500:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 503:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+            }
+
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Qubrics\Mailbox\Model\MailboxAttachmentTextResponse',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\MailboxAttachmentTextResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\MailboxAttachmentTextResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 429:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 503:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation mailboxGetAttachmentTextAsync
+     *
+     * Read attachment text
+     *
+     * @param  string $message_id Message ID in the selected mailbox. (required)
+     * @param  string $attachment_id Attachment ID from that message. (required)
+     * @param  int|null $max_bytes Maximum UTF-8 text bytes returned. Default 262144; maximum 1048576. Applies to cached results too. (optional)
+     * @param  string|null $if_none_match Return 304 when the authorised response is unchanged. (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxGetAttachmentText'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return PromiseInterface
+     */
+    public function mailboxGetAttachmentTextAsync(
+        string $message_id,
+        string $attachment_id,
+        ?int $max_bytes = null,
+        ?string $if_none_match = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxGetAttachmentText'][0]
+    ): PromiseInterface {
+        return $this->mailboxGetAttachmentTextAsyncWithHttpInfo(
+            $message_id,
+            $attachment_id,
+            $max_bytes,
+            $if_none_match,
+            $mailbox_id,
+            $contentType
+        )
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation mailboxGetAttachmentTextAsyncWithHttpInfo
+     *
+     * Read attachment text
+     *
+     * @param  string $message_id Message ID in the selected mailbox. (required)
+     * @param  string $attachment_id Attachment ID from that message. (required)
+     * @param  int|null $max_bytes Maximum UTF-8 text bytes returned. Default 262144; maximum 1048576. Applies to cached results too. (optional)
+     * @param  string|null $if_none_match Return 304 when the authorised response is unchanged. (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxGetAttachmentText'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return PromiseInterface
+     */
+    public function mailboxGetAttachmentTextAsyncWithHttpInfo(
+        string $message_id,
+        string $attachment_id,
+        ?int $max_bytes = null,
+        ?string $if_none_match = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxGetAttachmentText'][0]
+    ): PromiseInterface {
+        $returnType = '\Qubrics\Mailbox\Model\MailboxAttachmentTextResponse';
+        $request = $this->mailboxGetAttachmentTextRequest(
+            $message_id,
+            $attachment_id,
+            $max_bytes,
+            $if_none_match,
+            $mailbox_id,
+            $contentType
+        );
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType, $request) {
+                    if ($response->getStatusCode() === 304) {
+                        return [null, $response->getStatusCode(), $response->getHeaders()];
+                    }
+
+                    return $this->handleResponseWithDataType($returnType, $request, $response);
+                },
+                function ($exception) {
+                    if ($exception instanceof RequestException) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            $exception->getResponse() ? $exception->getResponse()->getHeaders() : null,
+                            $exception->getResponse() ? (string) $exception->getResponse()->getBody() : null
+                        );
+                    }
+
+                    if ($exception instanceof ConnectException) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            null,
+                            null
+                        );
+                    }
+
+                    if ($exception instanceof \Throwable) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            null,
+                            null
+                        );
+                    }
+
+                    throw new ApiException('[0] Unknown API error', 0, null, null);
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'mailboxGetAttachmentText'
+     *
+     * @param  string $message_id Message ID in the selected mailbox. (required)
+     * @param  string $attachment_id Attachment ID from that message. (required)
+     * @param  int|null $max_bytes Maximum UTF-8 text bytes returned. Default 262144; maximum 1048576. Applies to cached results too. (optional)
+     * @param  string|null $if_none_match Return 304 when the authorised response is unchanged. (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxGetAttachmentText'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function mailboxGetAttachmentTextRequest(
+        string $message_id,
+        string $attachment_id,
+        ?int $max_bytes = null,
+        ?string $if_none_match = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxGetAttachmentText'][0]
+    ): Request {
+
+        // verify the required parameter 'message_id' is set
+        if ($message_id === null || (is_array($message_id) && count($message_id) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $message_id when calling mailboxGetAttachmentText'
+            );
+        }
+
+        // verify the required parameter 'attachment_id' is set
+        if ($attachment_id === null || (is_array($attachment_id) && count($attachment_id) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $attachment_id when calling mailboxGetAttachmentText'
+            );
+        }
+
+        if ($max_bytes !== null && $max_bytes > 1048576) {
+            throw new InvalidArgumentException('invalid value for "$max_bytes" when calling MailboxAPIApi.mailboxGetAttachmentText, must be smaller than or equal to 1048576.');
+        }
+        if ($max_bytes !== null && $max_bytes < 1) {
+            throw new InvalidArgumentException('invalid value for "$max_bytes" when calling MailboxAPIApi.mailboxGetAttachmentText, must be bigger than or equal to 1.');
+        }
+
+
+
+
+        $resourcePath = '/mailbox/messages/{message_id}/attachments/{attachment_id}/text';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $max_bytes,
+            'max_bytes', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $mailbox_id,
+            'mailbox_id', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+        // header params
+        if ($if_none_match !== null) {
+            $headerParams['If-None-Match'] = ObjectSerializer::toHeaderValue($if_none_match);
+        }
+
+        // path params
+        if ($message_id !== null) {
+            $resourcePath = str_replace(
+                '{message_id}',
+                ObjectSerializer::toPathValue($message_id),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($attachment_id !== null) {
+            $resourcePath = str_replace(
+                '{attachment_id}',
+                ObjectSerializer::toPathValue($attachment_id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires OAuth (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        // this endpoint requires Bearer (API Key) authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation mailboxGetCalendar
+     *
+     * Get a calendar
+     *
+     * @param  string $calendar_id calendar_id (required)
+     * @param  string|null $if_none_match if_none_match (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxGetCalendar'] to see the possible values for this operation
+     *
+     * @throws ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws InvalidArgumentException
+     * @return \Qubrics\Mailbox\Model\MailboxCalendarResponse|\Qubrics\Mailbox\Model\ApiError|null
+     */
+    public function mailboxGetCalendar(
+        string $calendar_id,
+        ?string $if_none_match = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxGetCalendar'][0]
+    ): \Qubrics\Mailbox\Model\MailboxCalendarResponse|\Qubrics\Mailbox\Model\ApiError|null {
+        list($response) = $this->mailboxGetCalendarWithHttpInfo(
+            $calendar_id,
+            $if_none_match,
+            $mailbox_id,
+            $contentType
+        );
+        return $response;
+    }
+
+    /**
+     * Operation mailboxGetCalendarWithHttpInfo
+     *
+     * Get a calendar
+     *
+     * @param  string $calendar_id calendar_id (required)
+     * @param  string|null $if_none_match if_none_match (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxGetCalendar'] to see the possible values for this operation
+     *
+     * @throws ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws InvalidArgumentException
+     * @return array of \Qubrics\Mailbox\Model\MailboxCalendarResponse|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function mailboxGetCalendarWithHttpInfo(
+        string $calendar_id,
+        ?string $if_none_match = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxGetCalendar'][0]
+    ): array {
+        $request = $this->mailboxGetCalendarRequest(
+            $calendar_id,
+            $if_none_match,
+            $mailbox_id,
+            $contentType
+        );
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            switch ($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\MailboxCalendarResponse',
+                        $request,
+                        $response,
+                    );
+                case 304:
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                case 400:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 401:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 403:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 409:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 413:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 422:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 429:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 500:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 503:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+            }
+
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Qubrics\Mailbox\Model\MailboxCalendarResponse',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\MailboxCalendarResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 409:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 413:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 422:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 429:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 503:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation mailboxGetCalendarAsync
+     *
+     * Get a calendar
+     *
+     * @param  string $calendar_id calendar_id (required)
+     * @param  string|null $if_none_match if_none_match (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxGetCalendar'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return PromiseInterface
+     */
+    public function mailboxGetCalendarAsync(
+        string $calendar_id,
+        ?string $if_none_match = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxGetCalendar'][0]
+    ): PromiseInterface {
+        return $this->mailboxGetCalendarAsyncWithHttpInfo(
+            $calendar_id,
+            $if_none_match,
+            $mailbox_id,
+            $contentType
+        )
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation mailboxGetCalendarAsyncWithHttpInfo
+     *
+     * Get a calendar
+     *
+     * @param  string $calendar_id calendar_id (required)
+     * @param  string|null $if_none_match if_none_match (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxGetCalendar'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return PromiseInterface
+     */
+    public function mailboxGetCalendarAsyncWithHttpInfo(
+        string $calendar_id,
+        ?string $if_none_match = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxGetCalendar'][0]
+    ): PromiseInterface {
+        $returnType = '\Qubrics\Mailbox\Model\MailboxCalendarResponse';
+        $request = $this->mailboxGetCalendarRequest(
+            $calendar_id,
+            $if_none_match,
+            $mailbox_id,
+            $contentType
+        );
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType, $request) {
+                    if ($response->getStatusCode() === 304) {
+                        return [null, $response->getStatusCode(), $response->getHeaders()];
+                    }
+
+                    return $this->handleResponseWithDataType($returnType, $request, $response);
+                },
+                function ($exception) {
+                    if ($exception instanceof RequestException) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            $exception->getResponse() ? $exception->getResponse()->getHeaders() : null,
+                            $exception->getResponse() ? (string) $exception->getResponse()->getBody() : null
+                        );
+                    }
+
+                    if ($exception instanceof ConnectException) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            null,
+                            null
+                        );
+                    }
+
+                    if ($exception instanceof \Throwable) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            null,
+                            null
+                        );
+                    }
+
+                    throw new ApiException('[0] Unknown API error', 0, null, null);
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'mailboxGetCalendar'
+     *
+     * @param  string $calendar_id calendar_id (required)
+     * @param  string|null $if_none_match if_none_match (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxGetCalendar'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function mailboxGetCalendarRequest(
+        string $calendar_id,
+        ?string $if_none_match = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxGetCalendar'][0]
+    ): Request {
+
+        // verify the required parameter 'calendar_id' is set
+        if ($calendar_id === null || (is_array($calendar_id) && count($calendar_id) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $calendar_id when calling mailboxGetCalendar'
+            );
+        }
+        if (strlen($calendar_id) > 4096) {
+            throw new InvalidArgumentException('invalid length for "$calendar_id" when calling MailboxAPIApi.mailboxGetCalendar, must be smaller than or equal to 4096.');
+        }
+        if (strlen($calendar_id) < 1) {
+            throw new InvalidArgumentException('invalid length for "$calendar_id" when calling MailboxAPIApi.mailboxGetCalendar, must be bigger than or equal to 1.');
+        }
+        if (!preg_match("/^[A-Za-z0-9_-]+$/", $calendar_id)) {
+            throw new InvalidArgumentException("invalid value for \"calendar_id\" when calling MailboxAPIApi.mailboxGetCalendar, must conform to the pattern /^[A-Za-z0-9_-]+$/.");
+        }
+
+
+
+
+        $resourcePath = '/mailbox/calendars/{calendar_id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $mailbox_id,
+            'mailbox_id', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+        // header params
+        if ($if_none_match !== null) {
+            $headerParams['If-None-Match'] = ObjectSerializer::toHeaderValue($if_none_match);
+        }
+
+        // path params
+        if ($calendar_id !== null) {
+            $resourcePath = str_replace(
+                '{calendar_id}',
+                ObjectSerializer::toPathValue($calendar_id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires OAuth (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        // this endpoint requires Bearer (API Key) authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation mailboxGetCalendarEvent
+     *
+     * Get a calendar event
+     *
+     * @param  string $event_id event_id (required)
+     * @param  string|null $if_none_match if_none_match (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxGetCalendarEvent'] to see the possible values for this operation
+     *
+     * @throws ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws InvalidArgumentException
+     * @return \Qubrics\Mailbox\Model\MailboxCalendarEventResponse|\Qubrics\Mailbox\Model\ApiError|null
+     */
+    public function mailboxGetCalendarEvent(
+        string $event_id,
+        ?string $if_none_match = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxGetCalendarEvent'][0]
+    ): \Qubrics\Mailbox\Model\MailboxCalendarEventResponse|\Qubrics\Mailbox\Model\ApiError|null {
+        list($response) = $this->mailboxGetCalendarEventWithHttpInfo(
+            $event_id,
+            $if_none_match,
+            $mailbox_id,
+            $contentType
+        );
+        return $response;
+    }
+
+    /**
+     * Operation mailboxGetCalendarEventWithHttpInfo
+     *
+     * Get a calendar event
+     *
+     * @param  string $event_id event_id (required)
+     * @param  string|null $if_none_match if_none_match (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxGetCalendarEvent'] to see the possible values for this operation
+     *
+     * @throws ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws InvalidArgumentException
+     * @return array of \Qubrics\Mailbox\Model\MailboxCalendarEventResponse|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function mailboxGetCalendarEventWithHttpInfo(
+        string $event_id,
+        ?string $if_none_match = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxGetCalendarEvent'][0]
+    ): array {
+        $request = $this->mailboxGetCalendarEventRequest(
+            $event_id,
+            $if_none_match,
+            $mailbox_id,
+            $contentType
+        );
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            switch ($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\MailboxCalendarEventResponse',
+                        $request,
+                        $response,
+                    );
+                case 304:
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                case 400:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 401:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 403:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 409:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 413:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 422:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 429:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 500:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 503:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+            }
+
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Qubrics\Mailbox\Model\MailboxCalendarEventResponse',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\MailboxCalendarEventResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 409:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 413:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 422:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 429:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 503:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation mailboxGetCalendarEventAsync
+     *
+     * Get a calendar event
+     *
+     * @param  string $event_id event_id (required)
+     * @param  string|null $if_none_match if_none_match (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxGetCalendarEvent'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return PromiseInterface
+     */
+    public function mailboxGetCalendarEventAsync(
+        string $event_id,
+        ?string $if_none_match = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxGetCalendarEvent'][0]
+    ): PromiseInterface {
+        return $this->mailboxGetCalendarEventAsyncWithHttpInfo(
+            $event_id,
+            $if_none_match,
+            $mailbox_id,
+            $contentType
+        )
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation mailboxGetCalendarEventAsyncWithHttpInfo
+     *
+     * Get a calendar event
+     *
+     * @param  string $event_id event_id (required)
+     * @param  string|null $if_none_match if_none_match (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxGetCalendarEvent'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return PromiseInterface
+     */
+    public function mailboxGetCalendarEventAsyncWithHttpInfo(
+        string $event_id,
+        ?string $if_none_match = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxGetCalendarEvent'][0]
+    ): PromiseInterface {
+        $returnType = '\Qubrics\Mailbox\Model\MailboxCalendarEventResponse';
+        $request = $this->mailboxGetCalendarEventRequest(
+            $event_id,
+            $if_none_match,
+            $mailbox_id,
+            $contentType
+        );
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType, $request) {
+                    if ($response->getStatusCode() === 304) {
+                        return [null, $response->getStatusCode(), $response->getHeaders()];
+                    }
+
+                    return $this->handleResponseWithDataType($returnType, $request, $response);
+                },
+                function ($exception) {
+                    if ($exception instanceof RequestException) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            $exception->getResponse() ? $exception->getResponse()->getHeaders() : null,
+                            $exception->getResponse() ? (string) $exception->getResponse()->getBody() : null
+                        );
+                    }
+
+                    if ($exception instanceof ConnectException) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            null,
+                            null
+                        );
+                    }
+
+                    if ($exception instanceof \Throwable) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            null,
+                            null
+                        );
+                    }
+
+                    throw new ApiException('[0] Unknown API error', 0, null, null);
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'mailboxGetCalendarEvent'
+     *
+     * @param  string $event_id event_id (required)
+     * @param  string|null $if_none_match if_none_match (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxGetCalendarEvent'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function mailboxGetCalendarEventRequest(
+        string $event_id,
+        ?string $if_none_match = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxGetCalendarEvent'][0]
+    ): Request {
+
+        // verify the required parameter 'event_id' is set
+        if ($event_id === null || (is_array($event_id) && count($event_id) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $event_id when calling mailboxGetCalendarEvent'
+            );
+        }
+        if (strlen($event_id) > 4096) {
+            throw new InvalidArgumentException('invalid length for "$event_id" when calling MailboxAPIApi.mailboxGetCalendarEvent, must be smaller than or equal to 4096.');
+        }
+        if (strlen($event_id) < 1) {
+            throw new InvalidArgumentException('invalid length for "$event_id" when calling MailboxAPIApi.mailboxGetCalendarEvent, must be bigger than or equal to 1.');
+        }
+        if (!preg_match("/^[A-Za-z0-9_-]+$/", $event_id)) {
+            throw new InvalidArgumentException("invalid value for \"event_id\" when calling MailboxAPIApi.mailboxGetCalendarEvent, must conform to the pattern /^[A-Za-z0-9_-]+$/.");
+        }
+
+
+
+
+        $resourcePath = '/mailbox/calendar-events/{event_id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $mailbox_id,
+            'mailbox_id', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+        // header params
+        if ($if_none_match !== null) {
+            $headerParams['If-None-Match'] = ObjectSerializer::toHeaderValue($if_none_match);
+        }
+
+        // path params
+        if ($event_id !== null) {
+            $resourcePath = str_replace(
+                '{event_id}',
+                ObjectSerializer::toPathValue($event_id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires OAuth (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        // this endpoint requires Bearer (API Key) authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation mailboxGetCalendarEventChanges
+     *
+     * Get calendar event changes
+     *
+     * @param  string|null $since_state since_state (optional)
+     * @param  int|null $limit limit (optional, default to 100)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxGetCalendarEventChanges'] to see the possible values for this operation
+     *
+     * @throws ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws InvalidArgumentException
+     * @return \Qubrics\Mailbox\Model\MailboxCalendarChangesResponse|\Qubrics\Mailbox\Model\ApiError
+     */
+    public function mailboxGetCalendarEventChanges(
+        ?string $since_state = null,
+        ?int $limit = 100,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxGetCalendarEventChanges'][0]
+    ): \Qubrics\Mailbox\Model\MailboxCalendarChangesResponse|\Qubrics\Mailbox\Model\ApiError {
+        list($response) = $this->mailboxGetCalendarEventChangesWithHttpInfo(
+            $since_state,
+            $limit,
+            $mailbox_id,
+            $contentType
+        );
+        return $response;
+    }
+
+    /**
+     * Operation mailboxGetCalendarEventChangesWithHttpInfo
+     *
+     * Get calendar event changes
+     *
+     * @param  string|null $since_state since_state (optional)
+     * @param  int|null $limit limit (optional, default to 100)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxGetCalendarEventChanges'] to see the possible values for this operation
+     *
+     * @throws ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws InvalidArgumentException
+     * @return array of \Qubrics\Mailbox\Model\MailboxCalendarChangesResponse|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function mailboxGetCalendarEventChangesWithHttpInfo(
+        ?string $since_state = null,
+        ?int $limit = 100,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxGetCalendarEventChanges'][0]
+    ): array {
+        $request = $this->mailboxGetCalendarEventChangesRequest(
+            $since_state,
+            $limit,
+            $mailbox_id,
+            $contentType
+        );
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            switch ($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\MailboxCalendarChangesResponse',
+                        $request,
+                        $response,
+                    );
+                case 400:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 401:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 403:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 409:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 413:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 422:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 429:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 500:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 503:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+            }
+
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Qubrics\Mailbox\Model\MailboxCalendarChangesResponse',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\MailboxCalendarChangesResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 409:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 413:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 422:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 429:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 503:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation mailboxGetCalendarEventChangesAsync
+     *
+     * Get calendar event changes
+     *
+     * @param  string|null $since_state since_state (optional)
+     * @param  int|null $limit limit (optional, default to 100)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxGetCalendarEventChanges'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return PromiseInterface
+     */
+    public function mailboxGetCalendarEventChangesAsync(
+        ?string $since_state = null,
+        ?int $limit = 100,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxGetCalendarEventChanges'][0]
+    ): PromiseInterface {
+        return $this->mailboxGetCalendarEventChangesAsyncWithHttpInfo(
+            $since_state,
+            $limit,
+            $mailbox_id,
+            $contentType
+        )
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation mailboxGetCalendarEventChangesAsyncWithHttpInfo
+     *
+     * Get calendar event changes
+     *
+     * @param  string|null $since_state since_state (optional)
+     * @param  int|null $limit limit (optional, default to 100)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxGetCalendarEventChanges'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return PromiseInterface
+     */
+    public function mailboxGetCalendarEventChangesAsyncWithHttpInfo(
+        ?string $since_state = null,
+        ?int $limit = 100,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxGetCalendarEventChanges'][0]
+    ): PromiseInterface {
+        $returnType = '\Qubrics\Mailbox\Model\MailboxCalendarChangesResponse';
+        $request = $this->mailboxGetCalendarEventChangesRequest(
+            $since_state,
+            $limit,
+            $mailbox_id,
+            $contentType
+        );
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType, $request) {
+                    return $this->handleResponseWithDataType($returnType, $request, $response);
+                },
+                function ($exception) {
+                    if ($exception instanceof RequestException) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            $exception->getResponse() ? $exception->getResponse()->getHeaders() : null,
+                            $exception->getResponse() ? (string) $exception->getResponse()->getBody() : null
+                        );
+                    }
+
+                    if ($exception instanceof ConnectException) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            null,
+                            null
+                        );
+                    }
+
+                    if ($exception instanceof \Throwable) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            null,
+                            null
+                        );
+                    }
+
+                    throw new ApiException('[0] Unknown API error', 0, null, null);
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'mailboxGetCalendarEventChanges'
+     *
+     * @param  string|null $since_state since_state (optional)
+     * @param  int|null $limit limit (optional, default to 100)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxGetCalendarEventChanges'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function mailboxGetCalendarEventChangesRequest(
+        ?string $since_state = null,
+        ?int $limit = 100,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxGetCalendarEventChanges'][0]
+    ): Request {
+
+        if ($since_state !== null && strlen($since_state) > 4096) {
+            throw new InvalidArgumentException('invalid length for "$since_state" when calling MailboxAPIApi.mailboxGetCalendarEventChanges, must be smaller than or equal to 4096.');
+        }
+        if ($since_state !== null && strlen($since_state) < 1) {
+            throw new InvalidArgumentException('invalid length for "$since_state" when calling MailboxAPIApi.mailboxGetCalendarEventChanges, must be bigger than or equal to 1.');
+        }
+        if ($since_state !== null && !preg_match("/^[A-Za-z0-9_-]+$/", $since_state)) {
+            throw new InvalidArgumentException("invalid value for \"since_state\" when calling MailboxAPIApi.mailboxGetCalendarEventChanges, must conform to the pattern /^[A-Za-z0-9_-]+$/.");
+        }
+
+        if ($limit !== null && $limit > 100) {
+            throw new InvalidArgumentException('invalid value for "$limit" when calling MailboxAPIApi.mailboxGetCalendarEventChanges, must be smaller than or equal to 100.');
+        }
+        if ($limit !== null && $limit < 1) {
+            throw new InvalidArgumentException('invalid value for "$limit" when calling MailboxAPIApi.mailboxGetCalendarEventChanges, must be bigger than or equal to 1.');
+        }
+
+
+
+        $resourcePath = '/mailbox/calendar-events/changes';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $since_state,
+            'since_state', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $limit,
+            'limit', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $mailbox_id,
+            'mailbox_id', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires OAuth (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        // this endpoint requires Bearer (API Key) authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation mailboxGetChanges
      *
      * Get mailbox changes
@@ -3570,7 +9513,7 @@ class MailboxAPIApi
      *
      * @throws ApiException on non-2xx response or if the response body is not in the expected format
      * @throws InvalidArgumentException
-     * @return \Qubrics\Mailbox\Model\MailboxGetChanges200Response|\Qubrics\Mailbox\Model\ApiError
+     * @return \Qubrics\Mailbox\Model\MailboxChangesResponse|\Qubrics\Mailbox\Model\MailboxTypedChangesResponse|\Qubrics\Mailbox\Model\ApiError
      */
     public function mailboxGetChanges(
         ?string $since_state = null,
@@ -3584,7 +9527,7 @@ class MailboxAPIApi
         ?int $limit = null,
         ?string $mailbox_id = null,
         string $contentType = self::contentTypes['mailboxGetChanges'][0]
-    ): \Qubrics\Mailbox\Model\MailboxGetChanges200Response|\Qubrics\Mailbox\Model\ApiError {
+    ): \Qubrics\Mailbox\Model\MailboxChangesResponse|\Qubrics\Mailbox\Model\MailboxTypedChangesResponse|\Qubrics\Mailbox\Model\ApiError {
         list($response) = $this->mailboxGetChangesWithHttpInfo(
             $since_state,
             $types,
@@ -3620,7 +9563,7 @@ class MailboxAPIApi
      *
      * @throws ApiException on non-2xx response or if the response body is not in the expected format
      * @throws InvalidArgumentException
-     * @return array of \Qubrics\Mailbox\Model\MailboxGetChanges200Response|\Qubrics\Mailbox\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Qubrics\Mailbox\Model\MailboxChangesResponse|\Qubrics\Mailbox\Model\MailboxTypedChangesResponse|\Qubrics\Mailbox\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
      */
     public function mailboxGetChangesWithHttpInfo(
         ?string $since_state = null,
@@ -3674,7 +9617,7 @@ class MailboxAPIApi
             switch ($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Qubrics\Mailbox\Model\MailboxGetChanges200Response',
+                        '\Qubrics\Mailbox\Model\MailboxChangesResponse|\Qubrics\Mailbox\Model\MailboxTypedChangesResponse',
                         $request,
                         $response,
                     );
@@ -3701,7 +9644,7 @@ class MailboxAPIApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Qubrics\Mailbox\Model\MailboxGetChanges200Response',
+                '\Qubrics\Mailbox\Model\MailboxChangesResponse|\Qubrics\Mailbox\Model\MailboxTypedChangesResponse',
                 $request,
                 $response,
             );
@@ -3815,7 +9758,7 @@ class MailboxAPIApi
         ?string $mailbox_id = null,
         string $contentType = self::contentTypes['mailboxGetChanges'][0]
     ): PromiseInterface {
-        $returnType = '\Qubrics\Mailbox\Model\MailboxGetChanges200Response';
+        $returnType = '\Qubrics\Mailbox\Model\MailboxChangesResponse|\Qubrics\Mailbox\Model\MailboxTypedChangesResponse';
         $request = $this->mailboxGetChangesRequest(
             $since_state,
             $types,
@@ -4381,6 +10324,493 @@ class MailboxAPIApi
             $headerParams['If-None-Match'] = ObjectSerializer::toHeaderValue($if_none_match);
         }
 
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires OAuth (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        // this endpoint requires Bearer (API Key) authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation mailboxGetDraft
+     *
+     * Read a saved draft
+     *
+     * @param  string $draft_id Stable draft ID. (required)
+     * @param  string|null $if_none_match Return 304 if this draft has not changed. (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxGetDraft'] to see the possible values for this operation
+     *
+     * @throws ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws InvalidArgumentException
+     * @return \Qubrics\Mailbox\Model\MailboxDraftResponse|\Qubrics\Mailbox\Model\ApiError|null
+     */
+    public function mailboxGetDraft(
+        string $draft_id,
+        ?string $if_none_match = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxGetDraft'][0]
+    ): \Qubrics\Mailbox\Model\MailboxDraftResponse|\Qubrics\Mailbox\Model\ApiError|null {
+        list($response) = $this->mailboxGetDraftWithHttpInfo(
+            $draft_id,
+            $if_none_match,
+            $mailbox_id,
+            $contentType
+        );
+        return $response;
+    }
+
+    /**
+     * Operation mailboxGetDraftWithHttpInfo
+     *
+     * Read a saved draft
+     *
+     * @param  string $draft_id Stable draft ID. (required)
+     * @param  string|null $if_none_match Return 304 if this draft has not changed. (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxGetDraft'] to see the possible values for this operation
+     *
+     * @throws ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws InvalidArgumentException
+     * @return array of \Qubrics\Mailbox\Model\MailboxDraftResponse|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function mailboxGetDraftWithHttpInfo(
+        string $draft_id,
+        ?string $if_none_match = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxGetDraft'][0]
+    ): array {
+        $request = $this->mailboxGetDraftRequest(
+            $draft_id,
+            $if_none_match,
+            $mailbox_id,
+            $contentType
+        );
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            switch ($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\MailboxDraftResponse',
+                        $request,
+                        $response,
+                    );
+                case 304:
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                case 400:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 401:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 403:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 409:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 413:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 422:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 429:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 500:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 503:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+            }
+
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Qubrics\Mailbox\Model\MailboxDraftResponse',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\MailboxDraftResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 409:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 413:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 422:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 429:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 503:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation mailboxGetDraftAsync
+     *
+     * Read a saved draft
+     *
+     * @param  string $draft_id Stable draft ID. (required)
+     * @param  string|null $if_none_match Return 304 if this draft has not changed. (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxGetDraft'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return PromiseInterface
+     */
+    public function mailboxGetDraftAsync(
+        string $draft_id,
+        ?string $if_none_match = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxGetDraft'][0]
+    ): PromiseInterface {
+        return $this->mailboxGetDraftAsyncWithHttpInfo(
+            $draft_id,
+            $if_none_match,
+            $mailbox_id,
+            $contentType
+        )
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation mailboxGetDraftAsyncWithHttpInfo
+     *
+     * Read a saved draft
+     *
+     * @param  string $draft_id Stable draft ID. (required)
+     * @param  string|null $if_none_match Return 304 if this draft has not changed. (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxGetDraft'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return PromiseInterface
+     */
+    public function mailboxGetDraftAsyncWithHttpInfo(
+        string $draft_id,
+        ?string $if_none_match = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxGetDraft'][0]
+    ): PromiseInterface {
+        $returnType = '\Qubrics\Mailbox\Model\MailboxDraftResponse';
+        $request = $this->mailboxGetDraftRequest(
+            $draft_id,
+            $if_none_match,
+            $mailbox_id,
+            $contentType
+        );
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType, $request) {
+                    if ($response->getStatusCode() === 304) {
+                        return [null, $response->getStatusCode(), $response->getHeaders()];
+                    }
+
+                    return $this->handleResponseWithDataType($returnType, $request, $response);
+                },
+                function ($exception) {
+                    if ($exception instanceof RequestException) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            $exception->getResponse() ? $exception->getResponse()->getHeaders() : null,
+                            $exception->getResponse() ? (string) $exception->getResponse()->getBody() : null
+                        );
+                    }
+
+                    if ($exception instanceof ConnectException) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            null,
+                            null
+                        );
+                    }
+
+                    if ($exception instanceof \Throwable) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            null,
+                            null
+                        );
+                    }
+
+                    throw new ApiException('[0] Unknown API error', 0, null, null);
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'mailboxGetDraft'
+     *
+     * @param  string $draft_id Stable draft ID. (required)
+     * @param  string|null $if_none_match Return 304 if this draft has not changed. (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxGetDraft'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function mailboxGetDraftRequest(
+        string $draft_id,
+        ?string $if_none_match = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxGetDraft'][0]
+    ): Request {
+
+        // verify the required parameter 'draft_id' is set
+        if ($draft_id === null || (is_array($draft_id) && count($draft_id) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $draft_id when calling mailboxGetDraft'
+            );
+        }
+
+
+
+
+        $resourcePath = '/mailbox/drafts/{draftId}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $mailbox_id,
+            'mailbox_id', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+        // header params
+        if ($if_none_match !== null) {
+            $headerParams['If-None-Match'] = ObjectSerializer::toHeaderValue($if_none_match);
+        }
+
+        // path params
+        if ($draft_id !== null) {
+            $resourcePath = str_replace(
+                '{draftId}',
+                ObjectSerializer::toPathValue($draft_id),
+                $resourcePath
+            );
+        }
 
 
         $headers = $this->headerSelector->selectHeaders(
@@ -6895,6 +13325,449 @@ class MailboxAPIApi
             false // required
         ) ?? []);
 
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires OAuth (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        // this endpoint requires Bearer (API Key) authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation mailboxGetSenderChoices
+     *
+     * Get permitted sender choices
+     *
+     * @param  string[]|null $delivery_group_id Restrict choices to these delivery groups. (optional)
+     * @param  string|null $if_none_match Return 304 when this ETag still matches. (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxGetSenderChoices'] to see the possible values for this operation
+     *
+     * @throws ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws InvalidArgumentException
+     * @return \Qubrics\Mailbox\Model\MailboxSenderChoicesResponse|\Qubrics\Mailbox\Model\ApiError|null
+     */
+    public function mailboxGetSenderChoices(
+        ?array $delivery_group_id = null,
+        ?string $if_none_match = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxGetSenderChoices'][0]
+    ): \Qubrics\Mailbox\Model\MailboxSenderChoicesResponse|\Qubrics\Mailbox\Model\ApiError|null {
+        list($response) = $this->mailboxGetSenderChoicesWithHttpInfo(
+            $delivery_group_id,
+            $if_none_match,
+            $mailbox_id,
+            $contentType
+        );
+        return $response;
+    }
+
+    /**
+     * Operation mailboxGetSenderChoicesWithHttpInfo
+     *
+     * Get permitted sender choices
+     *
+     * @param  string[]|null $delivery_group_id Restrict choices to these delivery groups. (optional)
+     * @param  string|null $if_none_match Return 304 when this ETag still matches. (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxGetSenderChoices'] to see the possible values for this operation
+     *
+     * @throws ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws InvalidArgumentException
+     * @return array of \Qubrics\Mailbox\Model\MailboxSenderChoicesResponse|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function mailboxGetSenderChoicesWithHttpInfo(
+        ?array $delivery_group_id = null,
+        ?string $if_none_match = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxGetSenderChoices'][0]
+    ): array {
+        $request = $this->mailboxGetSenderChoicesRequest(
+            $delivery_group_id,
+            $if_none_match,
+            $mailbox_id,
+            $contentType
+        );
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            switch ($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\MailboxSenderChoicesResponse',
+                        $request,
+                        $response,
+                    );
+                case 304:
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                case 400:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 401:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 403:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 429:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 500:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 503:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+            }
+
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Qubrics\Mailbox\Model\MailboxSenderChoicesResponse',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\MailboxSenderChoicesResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 429:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 503:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation mailboxGetSenderChoicesAsync
+     *
+     * Get permitted sender choices
+     *
+     * @param  string[]|null $delivery_group_id Restrict choices to these delivery groups. (optional)
+     * @param  string|null $if_none_match Return 304 when this ETag still matches. (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxGetSenderChoices'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return PromiseInterface
+     */
+    public function mailboxGetSenderChoicesAsync(
+        ?array $delivery_group_id = null,
+        ?string $if_none_match = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxGetSenderChoices'][0]
+    ): PromiseInterface {
+        return $this->mailboxGetSenderChoicesAsyncWithHttpInfo(
+            $delivery_group_id,
+            $if_none_match,
+            $mailbox_id,
+            $contentType
+        )
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation mailboxGetSenderChoicesAsyncWithHttpInfo
+     *
+     * Get permitted sender choices
+     *
+     * @param  string[]|null $delivery_group_id Restrict choices to these delivery groups. (optional)
+     * @param  string|null $if_none_match Return 304 when this ETag still matches. (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxGetSenderChoices'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return PromiseInterface
+     */
+    public function mailboxGetSenderChoicesAsyncWithHttpInfo(
+        ?array $delivery_group_id = null,
+        ?string $if_none_match = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxGetSenderChoices'][0]
+    ): PromiseInterface {
+        $returnType = '\Qubrics\Mailbox\Model\MailboxSenderChoicesResponse';
+        $request = $this->mailboxGetSenderChoicesRequest(
+            $delivery_group_id,
+            $if_none_match,
+            $mailbox_id,
+            $contentType
+        );
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType, $request) {
+                    if ($response->getStatusCode() === 304) {
+                        return [null, $response->getStatusCode(), $response->getHeaders()];
+                    }
+
+                    return $this->handleResponseWithDataType($returnType, $request, $response);
+                },
+                function ($exception) {
+                    if ($exception instanceof RequestException) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            $exception->getResponse() ? $exception->getResponse()->getHeaders() : null,
+                            $exception->getResponse() ? (string) $exception->getResponse()->getBody() : null
+                        );
+                    }
+
+                    if ($exception instanceof ConnectException) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            null,
+                            null
+                        );
+                    }
+
+                    if ($exception instanceof \Throwable) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            null,
+                            null
+                        );
+                    }
+
+                    throw new ApiException('[0] Unknown API error', 0, null, null);
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'mailboxGetSenderChoices'
+     *
+     * @param  string[]|null $delivery_group_id Restrict choices to these delivery groups. (optional)
+     * @param  string|null $if_none_match Return 304 when this ETag still matches. (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxGetSenderChoices'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function mailboxGetSenderChoicesRequest(
+        ?array $delivery_group_id = null,
+        ?string $if_none_match = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxGetSenderChoices'][0]
+    ): Request {
+
+        if ($delivery_group_id !== null && count($delivery_group_id) > 50) {
+            throw new InvalidArgumentException('invalid value for "$delivery_group_id" when calling MailboxAPIApi.mailboxGetSenderChoices, number of items must be less than or equal to 50.');
+        }
+
+
+
+
+        $resourcePath = '/mailbox/sender-choices';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $delivery_group_id,
+            'delivery_group_id', // param base name
+            'array', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $mailbox_id,
+            'mailbox_id', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+        // header params
+        if ($if_none_match !== null) {
+            $headerParams['If-None-Match'] = ObjectSerializer::toHeaderValue($if_none_match);
+        }
 
 
 
@@ -9483,6 +16356,1061 @@ class MailboxAPIApi
     }
 
     /**
+     * Operation mailboxListCalendarEvents
+     *
+     * List calendar events
+     *
+     * @param  int|null $limit limit (optional, default to 50)
+     * @param  string|null $cursor cursor (optional)
+     * @param  string|null $uid uid (optional)
+     * @param  string|null $calendar_id calendar_id (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxListCalendarEvents'] to see the possible values for this operation
+     *
+     * @throws ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws InvalidArgumentException
+     * @return \Qubrics\Mailbox\Model\MailboxCalendarEventListResponse|\Qubrics\Mailbox\Model\ApiError
+     */
+    public function mailboxListCalendarEvents(
+        ?int $limit = 50,
+        ?string $cursor = null,
+        ?string $uid = null,
+        ?string $calendar_id = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxListCalendarEvents'][0]
+    ): \Qubrics\Mailbox\Model\MailboxCalendarEventListResponse|\Qubrics\Mailbox\Model\ApiError {
+        list($response) = $this->mailboxListCalendarEventsWithHttpInfo(
+            $limit,
+            $cursor,
+            $uid,
+            $calendar_id,
+            $mailbox_id,
+            $contentType
+        );
+        return $response;
+    }
+
+    /**
+     * Operation mailboxListCalendarEventsWithHttpInfo
+     *
+     * List calendar events
+     *
+     * @param  int|null $limit limit (optional, default to 50)
+     * @param  string|null $cursor cursor (optional)
+     * @param  string|null $uid uid (optional)
+     * @param  string|null $calendar_id calendar_id (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxListCalendarEvents'] to see the possible values for this operation
+     *
+     * @throws ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws InvalidArgumentException
+     * @return array of \Qubrics\Mailbox\Model\MailboxCalendarEventListResponse|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function mailboxListCalendarEventsWithHttpInfo(
+        ?int $limit = 50,
+        ?string $cursor = null,
+        ?string $uid = null,
+        ?string $calendar_id = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxListCalendarEvents'][0]
+    ): array {
+        $request = $this->mailboxListCalendarEventsRequest(
+            $limit,
+            $cursor,
+            $uid,
+            $calendar_id,
+            $mailbox_id,
+            $contentType
+        );
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            switch ($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\MailboxCalendarEventListResponse',
+                        $request,
+                        $response,
+                    );
+                case 400:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 401:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 403:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 409:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 413:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 422:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 429:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 500:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 503:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+            }
+
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Qubrics\Mailbox\Model\MailboxCalendarEventListResponse',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\MailboxCalendarEventListResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 409:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 413:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 422:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 429:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 503:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation mailboxListCalendarEventsAsync
+     *
+     * List calendar events
+     *
+     * @param  int|null $limit limit (optional, default to 50)
+     * @param  string|null $cursor cursor (optional)
+     * @param  string|null $uid uid (optional)
+     * @param  string|null $calendar_id calendar_id (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxListCalendarEvents'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return PromiseInterface
+     */
+    public function mailboxListCalendarEventsAsync(
+        ?int $limit = 50,
+        ?string $cursor = null,
+        ?string $uid = null,
+        ?string $calendar_id = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxListCalendarEvents'][0]
+    ): PromiseInterface {
+        return $this->mailboxListCalendarEventsAsyncWithHttpInfo(
+            $limit,
+            $cursor,
+            $uid,
+            $calendar_id,
+            $mailbox_id,
+            $contentType
+        )
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation mailboxListCalendarEventsAsyncWithHttpInfo
+     *
+     * List calendar events
+     *
+     * @param  int|null $limit limit (optional, default to 50)
+     * @param  string|null $cursor cursor (optional)
+     * @param  string|null $uid uid (optional)
+     * @param  string|null $calendar_id calendar_id (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxListCalendarEvents'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return PromiseInterface
+     */
+    public function mailboxListCalendarEventsAsyncWithHttpInfo(
+        ?int $limit = 50,
+        ?string $cursor = null,
+        ?string $uid = null,
+        ?string $calendar_id = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxListCalendarEvents'][0]
+    ): PromiseInterface {
+        $returnType = '\Qubrics\Mailbox\Model\MailboxCalendarEventListResponse';
+        $request = $this->mailboxListCalendarEventsRequest(
+            $limit,
+            $cursor,
+            $uid,
+            $calendar_id,
+            $mailbox_id,
+            $contentType
+        );
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType, $request) {
+                    return $this->handleResponseWithDataType($returnType, $request, $response);
+                },
+                function ($exception) {
+                    if ($exception instanceof RequestException) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            $exception->getResponse() ? $exception->getResponse()->getHeaders() : null,
+                            $exception->getResponse() ? (string) $exception->getResponse()->getBody() : null
+                        );
+                    }
+
+                    if ($exception instanceof ConnectException) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            null,
+                            null
+                        );
+                    }
+
+                    if ($exception instanceof \Throwable) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            null,
+                            null
+                        );
+                    }
+
+                    throw new ApiException('[0] Unknown API error', 0, null, null);
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'mailboxListCalendarEvents'
+     *
+     * @param  int|null $limit limit (optional, default to 50)
+     * @param  string|null $cursor cursor (optional)
+     * @param  string|null $uid uid (optional)
+     * @param  string|null $calendar_id calendar_id (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxListCalendarEvents'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function mailboxListCalendarEventsRequest(
+        ?int $limit = 50,
+        ?string $cursor = null,
+        ?string $uid = null,
+        ?string $calendar_id = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxListCalendarEvents'][0]
+    ): Request {
+
+        if ($limit !== null && $limit > 100) {
+            throw new InvalidArgumentException('invalid value for "$limit" when calling MailboxAPIApi.mailboxListCalendarEvents, must be smaller than or equal to 100.');
+        }
+        if ($limit !== null && $limit < 1) {
+            throw new InvalidArgumentException('invalid value for "$limit" when calling MailboxAPIApi.mailboxListCalendarEvents, must be bigger than or equal to 1.');
+        }
+
+        if ($cursor !== null && strlen($cursor) > 4096) {
+            throw new InvalidArgumentException('invalid length for "$cursor" when calling MailboxAPIApi.mailboxListCalendarEvents, must be smaller than or equal to 4096.');
+        }
+        if ($cursor !== null && strlen($cursor) < 1) {
+            throw new InvalidArgumentException('invalid length for "$cursor" when calling MailboxAPIApi.mailboxListCalendarEvents, must be bigger than or equal to 1.');
+        }
+        if ($cursor !== null && !preg_match("/^[A-Za-z0-9_-]+$/", $cursor)) {
+            throw new InvalidArgumentException("invalid value for \"cursor\" when calling MailboxAPIApi.mailboxListCalendarEvents, must conform to the pattern /^[A-Za-z0-9_-]+$/.");
+        }
+
+        if ($uid !== null && strlen($uid) > 255) {
+            throw new InvalidArgumentException('invalid length for "$uid" when calling MailboxAPIApi.mailboxListCalendarEvents, must be smaller than or equal to 255.');
+        }
+        if ($uid !== null && strlen($uid) < 1) {
+            throw new InvalidArgumentException('invalid length for "$uid" when calling MailboxAPIApi.mailboxListCalendarEvents, must be bigger than or equal to 1.');
+        }
+
+        if ($calendar_id !== null && strlen($calendar_id) > 4096) {
+            throw new InvalidArgumentException('invalid length for "$calendar_id" when calling MailboxAPIApi.mailboxListCalendarEvents, must be smaller than or equal to 4096.');
+        }
+        if ($calendar_id !== null && strlen($calendar_id) < 1) {
+            throw new InvalidArgumentException('invalid length for "$calendar_id" when calling MailboxAPIApi.mailboxListCalendarEvents, must be bigger than or equal to 1.');
+        }
+        if ($calendar_id !== null && !preg_match("/^[A-Za-z0-9_-]+$/", $calendar_id)) {
+            throw new InvalidArgumentException("invalid value for \"calendar_id\" when calling MailboxAPIApi.mailboxListCalendarEvents, must conform to the pattern /^[A-Za-z0-9_-]+$/.");
+        }
+
+
+
+        $resourcePath = '/mailbox/calendar-events';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $limit,
+            'limit', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $cursor,
+            'cursor', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $uid,
+            'uid', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $calendar_id,
+            'calendar_id', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $mailbox_id,
+            'mailbox_id', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires OAuth (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        // this endpoint requires Bearer (API Key) authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation mailboxListCalendars
+     *
+     * List calendars
+     *
+     * @param  int|null $limit limit (optional, default to 50)
+     * @param  string|null $cursor cursor (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxListCalendars'] to see the possible values for this operation
+     *
+     * @throws ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws InvalidArgumentException
+     * @return \Qubrics\Mailbox\Model\MailboxCalendarListResponse|\Qubrics\Mailbox\Model\ApiError
+     */
+    public function mailboxListCalendars(
+        ?int $limit = 50,
+        ?string $cursor = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxListCalendars'][0]
+    ): \Qubrics\Mailbox\Model\MailboxCalendarListResponse|\Qubrics\Mailbox\Model\ApiError {
+        list($response) = $this->mailboxListCalendarsWithHttpInfo(
+            $limit,
+            $cursor,
+            $mailbox_id,
+            $contentType
+        );
+        return $response;
+    }
+
+    /**
+     * Operation mailboxListCalendarsWithHttpInfo
+     *
+     * List calendars
+     *
+     * @param  int|null $limit limit (optional, default to 50)
+     * @param  string|null $cursor cursor (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxListCalendars'] to see the possible values for this operation
+     *
+     * @throws ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws InvalidArgumentException
+     * @return array of \Qubrics\Mailbox\Model\MailboxCalendarListResponse|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function mailboxListCalendarsWithHttpInfo(
+        ?int $limit = 50,
+        ?string $cursor = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxListCalendars'][0]
+    ): array {
+        $request = $this->mailboxListCalendarsRequest(
+            $limit,
+            $cursor,
+            $mailbox_id,
+            $contentType
+        );
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            switch ($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\MailboxCalendarListResponse',
+                        $request,
+                        $response,
+                    );
+                case 400:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 401:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 403:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 409:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 413:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 422:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 429:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 500:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 503:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+            }
+
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Qubrics\Mailbox\Model\MailboxCalendarListResponse',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\MailboxCalendarListResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 409:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 413:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 422:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 429:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 503:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation mailboxListCalendarsAsync
+     *
+     * List calendars
+     *
+     * @param  int|null $limit limit (optional, default to 50)
+     * @param  string|null $cursor cursor (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxListCalendars'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return PromiseInterface
+     */
+    public function mailboxListCalendarsAsync(
+        ?int $limit = 50,
+        ?string $cursor = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxListCalendars'][0]
+    ): PromiseInterface {
+        return $this->mailboxListCalendarsAsyncWithHttpInfo(
+            $limit,
+            $cursor,
+            $mailbox_id,
+            $contentType
+        )
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation mailboxListCalendarsAsyncWithHttpInfo
+     *
+     * List calendars
+     *
+     * @param  int|null $limit limit (optional, default to 50)
+     * @param  string|null $cursor cursor (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxListCalendars'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return PromiseInterface
+     */
+    public function mailboxListCalendarsAsyncWithHttpInfo(
+        ?int $limit = 50,
+        ?string $cursor = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxListCalendars'][0]
+    ): PromiseInterface {
+        $returnType = '\Qubrics\Mailbox\Model\MailboxCalendarListResponse';
+        $request = $this->mailboxListCalendarsRequest(
+            $limit,
+            $cursor,
+            $mailbox_id,
+            $contentType
+        );
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType, $request) {
+                    return $this->handleResponseWithDataType($returnType, $request, $response);
+                },
+                function ($exception) {
+                    if ($exception instanceof RequestException) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            $exception->getResponse() ? $exception->getResponse()->getHeaders() : null,
+                            $exception->getResponse() ? (string) $exception->getResponse()->getBody() : null
+                        );
+                    }
+
+                    if ($exception instanceof ConnectException) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            null,
+                            null
+                        );
+                    }
+
+                    if ($exception instanceof \Throwable) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            null,
+                            null
+                        );
+                    }
+
+                    throw new ApiException('[0] Unknown API error', 0, null, null);
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'mailboxListCalendars'
+     *
+     * @param  int|null $limit limit (optional, default to 50)
+     * @param  string|null $cursor cursor (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxListCalendars'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function mailboxListCalendarsRequest(
+        ?int $limit = 50,
+        ?string $cursor = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxListCalendars'][0]
+    ): Request {
+
+        if ($limit !== null && $limit > 100) {
+            throw new InvalidArgumentException('invalid value for "$limit" when calling MailboxAPIApi.mailboxListCalendars, must be smaller than or equal to 100.');
+        }
+        if ($limit !== null && $limit < 1) {
+            throw new InvalidArgumentException('invalid value for "$limit" when calling MailboxAPIApi.mailboxListCalendars, must be bigger than or equal to 1.');
+        }
+
+        if ($cursor !== null && strlen($cursor) > 4096) {
+            throw new InvalidArgumentException('invalid length for "$cursor" when calling MailboxAPIApi.mailboxListCalendars, must be smaller than or equal to 4096.');
+        }
+        if ($cursor !== null && strlen($cursor) < 1) {
+            throw new InvalidArgumentException('invalid length for "$cursor" when calling MailboxAPIApi.mailboxListCalendars, must be bigger than or equal to 1.');
+        }
+        if ($cursor !== null && !preg_match("/^[A-Za-z0-9_-]+$/", $cursor)) {
+            throw new InvalidArgumentException("invalid value for \"cursor\" when calling MailboxAPIApi.mailboxListCalendars, must conform to the pattern /^[A-Za-z0-9_-]+$/.");
+        }
+
+
+
+        $resourcePath = '/mailbox/calendars';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $limit,
+            'limit', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $cursor,
+            'cursor', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $mailbox_id,
+            'mailbox_id', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires OAuth (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        // this endpoint requires Bearer (API Key) authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation mailboxListContent
      *
      * Get clean message content
@@ -9992,6 +17920,493 @@ class MailboxAPIApi
                 $resourcePath
             );
         }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires OAuth (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        // this endpoint requires Bearer (API Key) authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation mailboxListDrafts
+     *
+     * List saved drafts
+     *
+     * @param  int|null $limit Page size; default 50, maximum 100. (optional)
+     * @param  string|null $cursor Cursor returned by the previous page. (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxListDrafts'] to see the possible values for this operation
+     *
+     * @throws ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws InvalidArgumentException
+     * @return \Qubrics\Mailbox\Model\MailboxDraftListResponse|\Qubrics\Mailbox\Model\ApiError
+     */
+    public function mailboxListDrafts(
+        ?int $limit = null,
+        ?string $cursor = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxListDrafts'][0]
+    ): \Qubrics\Mailbox\Model\MailboxDraftListResponse|\Qubrics\Mailbox\Model\ApiError {
+        list($response) = $this->mailboxListDraftsWithHttpInfo(
+            $limit,
+            $cursor,
+            $mailbox_id,
+            $contentType
+        );
+        return $response;
+    }
+
+    /**
+     * Operation mailboxListDraftsWithHttpInfo
+     *
+     * List saved drafts
+     *
+     * @param  int|null $limit Page size; default 50, maximum 100. (optional)
+     * @param  string|null $cursor Cursor returned by the previous page. (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxListDrafts'] to see the possible values for this operation
+     *
+     * @throws ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws InvalidArgumentException
+     * @return array of \Qubrics\Mailbox\Model\MailboxDraftListResponse|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function mailboxListDraftsWithHttpInfo(
+        ?int $limit = null,
+        ?string $cursor = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxListDrafts'][0]
+    ): array {
+        $request = $this->mailboxListDraftsRequest(
+            $limit,
+            $cursor,
+            $mailbox_id,
+            $contentType
+        );
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            switch ($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\MailboxDraftListResponse',
+                        $request,
+                        $response,
+                    );
+                case 400:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 401:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 403:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 409:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 413:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 422:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 429:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 500:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 503:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+            }
+
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Qubrics\Mailbox\Model\MailboxDraftListResponse',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\MailboxDraftListResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 409:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 413:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 422:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 429:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 503:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation mailboxListDraftsAsync
+     *
+     * List saved drafts
+     *
+     * @param  int|null $limit Page size; default 50, maximum 100. (optional)
+     * @param  string|null $cursor Cursor returned by the previous page. (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxListDrafts'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return PromiseInterface
+     */
+    public function mailboxListDraftsAsync(
+        ?int $limit = null,
+        ?string $cursor = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxListDrafts'][0]
+    ): PromiseInterface {
+        return $this->mailboxListDraftsAsyncWithHttpInfo(
+            $limit,
+            $cursor,
+            $mailbox_id,
+            $contentType
+        )
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation mailboxListDraftsAsyncWithHttpInfo
+     *
+     * List saved drafts
+     *
+     * @param  int|null $limit Page size; default 50, maximum 100. (optional)
+     * @param  string|null $cursor Cursor returned by the previous page. (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxListDrafts'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return PromiseInterface
+     */
+    public function mailboxListDraftsAsyncWithHttpInfo(
+        ?int $limit = null,
+        ?string $cursor = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxListDrafts'][0]
+    ): PromiseInterface {
+        $returnType = '\Qubrics\Mailbox\Model\MailboxDraftListResponse';
+        $request = $this->mailboxListDraftsRequest(
+            $limit,
+            $cursor,
+            $mailbox_id,
+            $contentType
+        );
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType, $request) {
+                    return $this->handleResponseWithDataType($returnType, $request, $response);
+                },
+                function ($exception) {
+                    if ($exception instanceof RequestException) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            $exception->getResponse() ? $exception->getResponse()->getHeaders() : null,
+                            $exception->getResponse() ? (string) $exception->getResponse()->getBody() : null
+                        );
+                    }
+
+                    if ($exception instanceof ConnectException) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            null,
+                            null
+                        );
+                    }
+
+                    if ($exception instanceof \Throwable) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            null,
+                            null
+                        );
+                    }
+
+                    throw new ApiException('[0] Unknown API error', 0, null, null);
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'mailboxListDrafts'
+     *
+     * @param  int|null $limit Page size; default 50, maximum 100. (optional)
+     * @param  string|null $cursor Cursor returned by the previous page. (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxListDrafts'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function mailboxListDraftsRequest(
+        ?int $limit = null,
+        ?string $cursor = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxListDrafts'][0]
+    ): Request {
+
+        if ($limit !== null && $limit > 100) {
+            throw new InvalidArgumentException('invalid value for "$limit" when calling MailboxAPIApi.mailboxListDrafts, must be smaller than or equal to 100.');
+        }
+        if ($limit !== null && $limit < 1) {
+            throw new InvalidArgumentException('invalid value for "$limit" when calling MailboxAPIApi.mailboxListDrafts, must be bigger than or equal to 1.');
+        }
+
+
+
+
+        $resourcePath = '/mailbox/drafts';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $limit,
+            'limit', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $cursor,
+            'cursor', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $mailbox_id,
+            'mailbox_id', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
 
 
         $headers = $this->headerSelector->selectHeaders(
@@ -13137,7 +21552,7 @@ class MailboxAPIApi
      *
      * @throws ApiException on non-2xx response or if the response body is not in the expected format
      * @throws InvalidArgumentException
-     * @return \Qubrics\Mailbox\Model\MailboxMessageSummaryCursorListResponse|\Qubrics\Mailbox\Model\ApiError
+     * @return \Qubrics\Mailbox\Model\MailboxThreadMessageSummaryCursorListResponse|\Qubrics\Mailbox\Model\ApiError
      */
     public function mailboxListThreadMessages(
         string $thread_id,
@@ -13146,7 +21561,7 @@ class MailboxAPIApi
         ?string $sort = null,
         ?string $mailbox_id = null,
         string $contentType = self::contentTypes['mailboxListThreadMessages'][0]
-    ): \Qubrics\Mailbox\Model\MailboxMessageSummaryCursorListResponse|\Qubrics\Mailbox\Model\ApiError {
+    ): \Qubrics\Mailbox\Model\MailboxThreadMessageSummaryCursorListResponse|\Qubrics\Mailbox\Model\ApiError {
         list($response) = $this->mailboxListThreadMessagesWithHttpInfo(
             $thread_id,
             $cursor,
@@ -13172,7 +21587,7 @@ class MailboxAPIApi
      *
      * @throws ApiException on non-2xx response or if the response body is not in the expected format
      * @throws InvalidArgumentException
-     * @return array of \Qubrics\Mailbox\Model\MailboxMessageSummaryCursorListResponse|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Qubrics\Mailbox\Model\MailboxThreadMessageSummaryCursorListResponse|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
      */
     public function mailboxListThreadMessagesWithHttpInfo(
         string $thread_id,
@@ -13216,7 +21631,7 @@ class MailboxAPIApi
             switch ($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Qubrics\Mailbox\Model\MailboxMessageSummaryCursorListResponse',
+                        '\Qubrics\Mailbox\Model\MailboxThreadMessageSummaryCursorListResponse',
                         $request,
                         $response,
                     );
@@ -13249,7 +21664,7 @@ class MailboxAPIApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Qubrics\Mailbox\Model\MailboxMessageSummaryCursorListResponse',
+                '\Qubrics\Mailbox\Model\MailboxThreadMessageSummaryCursorListResponse',
                 $request,
                 $response,
             );
@@ -13258,7 +21673,7 @@ class MailboxAPIApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Qubrics\Mailbox\Model\MailboxMessageSummaryCursorListResponse',
+                        '\Qubrics\Mailbox\Model\MailboxThreadMessageSummaryCursorListResponse',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -13346,7 +21761,7 @@ class MailboxAPIApi
         ?string $mailbox_id = null,
         string $contentType = self::contentTypes['mailboxListThreadMessages'][0]
     ): PromiseInterface {
-        $returnType = '\Qubrics\Mailbox\Model\MailboxMessageSummaryCursorListResponse';
+        $returnType = '\Qubrics\Mailbox\Model\MailboxThreadMessageSummaryCursorListResponse';
         $request = $this->mailboxListThreadMessagesRequest(
             $thread_id,
             $cursor,
@@ -15707,6 +24122,499 @@ class MailboxAPIApi
     }
 
     /**
+     * Operation mailboxRequestAttachmentText
+     *
+     * Request attachment text
+     *
+     * @param  string $message_id Message ID in the selected mailbox. (required)
+     * @param  string $attachment_id Attachment ID from that message. (required)
+     * @param  int|null $max_bytes Maximum UTF-8 text bytes returned. Default 262144; maximum 1048576. Applies to cached results too. (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxRequestAttachmentText'] to see the possible values for this operation
+     *
+     * @throws ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws InvalidArgumentException
+     * @return \Qubrics\Mailbox\Model\MailboxAttachmentTextResponse|\Qubrics\Mailbox\Model\ApiError
+     */
+    public function mailboxRequestAttachmentText(
+        string $message_id,
+        string $attachment_id,
+        ?int $max_bytes = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxRequestAttachmentText'][0]
+    ): \Qubrics\Mailbox\Model\MailboxAttachmentTextResponse|\Qubrics\Mailbox\Model\ApiError {
+        list($response) = $this->mailboxRequestAttachmentTextWithHttpInfo(
+            $message_id,
+            $attachment_id,
+            $max_bytes,
+            $mailbox_id,
+            $contentType
+        );
+        return $response;
+    }
+
+    /**
+     * Operation mailboxRequestAttachmentTextWithHttpInfo
+     *
+     * Request attachment text
+     *
+     * @param  string $message_id Message ID in the selected mailbox. (required)
+     * @param  string $attachment_id Attachment ID from that message. (required)
+     * @param  int|null $max_bytes Maximum UTF-8 text bytes returned. Default 262144; maximum 1048576. Applies to cached results too. (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxRequestAttachmentText'] to see the possible values for this operation
+     *
+     * @throws ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws InvalidArgumentException
+     * @return array of \Qubrics\Mailbox\Model\MailboxAttachmentTextResponse|\Qubrics\Mailbox\Model\MailboxAttachmentTextResponse|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function mailboxRequestAttachmentTextWithHttpInfo(
+        string $message_id,
+        string $attachment_id,
+        ?int $max_bytes = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxRequestAttachmentText'][0]
+    ): array {
+        $request = $this->mailboxRequestAttachmentTextRequest(
+            $message_id,
+            $attachment_id,
+            $max_bytes,
+            $mailbox_id,
+            $contentType
+        );
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            switch ($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\MailboxAttachmentTextResponse',
+                        $request,
+                        $response,
+                    );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\MailboxAttachmentTextResponse',
+                        $request,
+                        $response,
+                    );
+                case 400:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 401:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 403:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 429:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 500:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 503:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+            }
+
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Qubrics\Mailbox\Model\MailboxAttachmentTextResponse',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\MailboxAttachmentTextResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\MailboxAttachmentTextResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 429:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 503:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation mailboxRequestAttachmentTextAsync
+     *
+     * Request attachment text
+     *
+     * @param  string $message_id Message ID in the selected mailbox. (required)
+     * @param  string $attachment_id Attachment ID from that message. (required)
+     * @param  int|null $max_bytes Maximum UTF-8 text bytes returned. Default 262144; maximum 1048576. Applies to cached results too. (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxRequestAttachmentText'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return PromiseInterface
+     */
+    public function mailboxRequestAttachmentTextAsync(
+        string $message_id,
+        string $attachment_id,
+        ?int $max_bytes = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxRequestAttachmentText'][0]
+    ): PromiseInterface {
+        return $this->mailboxRequestAttachmentTextAsyncWithHttpInfo(
+            $message_id,
+            $attachment_id,
+            $max_bytes,
+            $mailbox_id,
+            $contentType
+        )
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation mailboxRequestAttachmentTextAsyncWithHttpInfo
+     *
+     * Request attachment text
+     *
+     * @param  string $message_id Message ID in the selected mailbox. (required)
+     * @param  string $attachment_id Attachment ID from that message. (required)
+     * @param  int|null $max_bytes Maximum UTF-8 text bytes returned. Default 262144; maximum 1048576. Applies to cached results too. (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxRequestAttachmentText'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return PromiseInterface
+     */
+    public function mailboxRequestAttachmentTextAsyncWithHttpInfo(
+        string $message_id,
+        string $attachment_id,
+        ?int $max_bytes = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxRequestAttachmentText'][0]
+    ): PromiseInterface {
+        $returnType = '\Qubrics\Mailbox\Model\MailboxAttachmentTextResponse';
+        $request = $this->mailboxRequestAttachmentTextRequest(
+            $message_id,
+            $attachment_id,
+            $max_bytes,
+            $mailbox_id,
+            $contentType
+        );
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType, $request) {
+                    return $this->handleResponseWithDataType($returnType, $request, $response);
+                },
+                function ($exception) {
+                    if ($exception instanceof RequestException) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            $exception->getResponse() ? $exception->getResponse()->getHeaders() : null,
+                            $exception->getResponse() ? (string) $exception->getResponse()->getBody() : null
+                        );
+                    }
+
+                    if ($exception instanceof ConnectException) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            null,
+                            null
+                        );
+                    }
+
+                    if ($exception instanceof \Throwable) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            null,
+                            null
+                        );
+                    }
+
+                    throw new ApiException('[0] Unknown API error', 0, null, null);
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'mailboxRequestAttachmentText'
+     *
+     * @param  string $message_id Message ID in the selected mailbox. (required)
+     * @param  string $attachment_id Attachment ID from that message. (required)
+     * @param  int|null $max_bytes Maximum UTF-8 text bytes returned. Default 262144; maximum 1048576. Applies to cached results too. (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxRequestAttachmentText'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function mailboxRequestAttachmentTextRequest(
+        string $message_id,
+        string $attachment_id,
+        ?int $max_bytes = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxRequestAttachmentText'][0]
+    ): Request {
+
+        // verify the required parameter 'message_id' is set
+        if ($message_id === null || (is_array($message_id) && count($message_id) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $message_id when calling mailboxRequestAttachmentText'
+            );
+        }
+
+        // verify the required parameter 'attachment_id' is set
+        if ($attachment_id === null || (is_array($attachment_id) && count($attachment_id) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $attachment_id when calling mailboxRequestAttachmentText'
+            );
+        }
+
+        if ($max_bytes !== null && $max_bytes > 1048576) {
+            throw new InvalidArgumentException('invalid value for "$max_bytes" when calling MailboxAPIApi.mailboxRequestAttachmentText, must be smaller than or equal to 1048576.');
+        }
+        if ($max_bytes !== null && $max_bytes < 1) {
+            throw new InvalidArgumentException('invalid value for "$max_bytes" when calling MailboxAPIApi.mailboxRequestAttachmentText, must be bigger than or equal to 1.');
+        }
+
+
+
+        $resourcePath = '/mailbox/messages/{message_id}/attachments/{attachment_id}/text';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $max_bytes,
+            'max_bytes', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $mailbox_id,
+            'mailbox_id', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+        // path params
+        if ($message_id !== null) {
+            $resourcePath = str_replace(
+                '{message_id}',
+                ObjectSerializer::toPathValue($message_id),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($attachment_id !== null) {
+            $resourcePath = str_replace(
+                '{attachment_id}',
+                ObjectSerializer::toPathValue($attachment_id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires OAuth (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        // this endpoint requires Bearer (API Key) authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation mailboxSearchMessageSnippets
      *
      * Get message search snippets
@@ -16505,6 +25413,515 @@ class MailboxAPIApi
         $query = ObjectSerializer::buildQuery($queryParams);
         return new Request(
             'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation mailboxSendDraft
+     *
+     * Send a saved draft revision
+     *
+     * @param  string $draft_id Stable draft ID. (required)
+     * @param  \Qubrics\Mailbox\Model\SendMailboxDraft $send_mailbox_draft send_mailbox_draft (required)
+     * @param  string|null $if_match Current draft ETag; expected_revision is required. (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxSendDraft'] to see the possible values for this operation
+     *
+     * @throws ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws InvalidArgumentException
+     * @return \Qubrics\Mailbox\Model\MailboxDraftResponse|\Qubrics\Mailbox\Model\ApiError
+     */
+    public function mailboxSendDraft(
+        string $draft_id,
+        \Qubrics\Mailbox\Model\SendMailboxDraft $send_mailbox_draft,
+        ?string $if_match = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxSendDraft'][0]
+    ): \Qubrics\Mailbox\Model\MailboxDraftResponse|\Qubrics\Mailbox\Model\ApiError {
+        list($response) = $this->mailboxSendDraftWithHttpInfo(
+            $draft_id,
+            $send_mailbox_draft,
+            $if_match,
+            $mailbox_id,
+            $contentType
+        );
+        return $response;
+    }
+
+    /**
+     * Operation mailboxSendDraftWithHttpInfo
+     *
+     * Send a saved draft revision
+     *
+     * @param  string $draft_id Stable draft ID. (required)
+     * @param  \Qubrics\Mailbox\Model\SendMailboxDraft $send_mailbox_draft send_mailbox_draft (required)
+     * @param  string|null $if_match Current draft ETag; expected_revision is required. (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxSendDraft'] to see the possible values for this operation
+     *
+     * @throws ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws InvalidArgumentException
+     * @return array of \Qubrics\Mailbox\Model\MailboxDraftResponse|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function mailboxSendDraftWithHttpInfo(
+        string $draft_id,
+        \Qubrics\Mailbox\Model\SendMailboxDraft $send_mailbox_draft,
+        ?string $if_match = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxSendDraft'][0]
+    ): array {
+        $request = $this->mailboxSendDraftRequest(
+            $draft_id,
+            $send_mailbox_draft,
+            $if_match,
+            $mailbox_id,
+            $contentType
+        );
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            switch ($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\MailboxDraftResponse',
+                        $request,
+                        $response,
+                    );
+                case 400:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 401:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 403:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 409:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 413:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 422:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 429:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 500:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 503:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+            }
+
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Qubrics\Mailbox\Model\MailboxDraftResponse',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\MailboxDraftResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 409:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 413:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 422:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 429:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 503:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation mailboxSendDraftAsync
+     *
+     * Send a saved draft revision
+     *
+     * @param  string $draft_id Stable draft ID. (required)
+     * @param  \Qubrics\Mailbox\Model\SendMailboxDraft $send_mailbox_draft send_mailbox_draft (required)
+     * @param  string|null $if_match Current draft ETag; expected_revision is required. (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxSendDraft'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return PromiseInterface
+     */
+    public function mailboxSendDraftAsync(
+        string $draft_id,
+        \Qubrics\Mailbox\Model\SendMailboxDraft $send_mailbox_draft,
+        ?string $if_match = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxSendDraft'][0]
+    ): PromiseInterface {
+        return $this->mailboxSendDraftAsyncWithHttpInfo(
+            $draft_id,
+            $send_mailbox_draft,
+            $if_match,
+            $mailbox_id,
+            $contentType
+        )
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation mailboxSendDraftAsyncWithHttpInfo
+     *
+     * Send a saved draft revision
+     *
+     * @param  string $draft_id Stable draft ID. (required)
+     * @param  \Qubrics\Mailbox\Model\SendMailboxDraft $send_mailbox_draft send_mailbox_draft (required)
+     * @param  string|null $if_match Current draft ETag; expected_revision is required. (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxSendDraft'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return PromiseInterface
+     */
+    public function mailboxSendDraftAsyncWithHttpInfo(
+        string $draft_id,
+        \Qubrics\Mailbox\Model\SendMailboxDraft $send_mailbox_draft,
+        ?string $if_match = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxSendDraft'][0]
+    ): PromiseInterface {
+        $returnType = '\Qubrics\Mailbox\Model\MailboxDraftResponse';
+        $request = $this->mailboxSendDraftRequest(
+            $draft_id,
+            $send_mailbox_draft,
+            $if_match,
+            $mailbox_id,
+            $contentType
+        );
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType, $request) {
+                    return $this->handleResponseWithDataType($returnType, $request, $response);
+                },
+                function ($exception) {
+                    if ($exception instanceof RequestException) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            $exception->getResponse() ? $exception->getResponse()->getHeaders() : null,
+                            $exception->getResponse() ? (string) $exception->getResponse()->getBody() : null
+                        );
+                    }
+
+                    if ($exception instanceof ConnectException) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            null,
+                            null
+                        );
+                    }
+
+                    if ($exception instanceof \Throwable) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            null,
+                            null
+                        );
+                    }
+
+                    throw new ApiException('[0] Unknown API error', 0, null, null);
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'mailboxSendDraft'
+     *
+     * @param  string $draft_id Stable draft ID. (required)
+     * @param  \Qubrics\Mailbox\Model\SendMailboxDraft $send_mailbox_draft send_mailbox_draft (required)
+     * @param  string|null $if_match Current draft ETag; expected_revision is required. (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxSendDraft'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function mailboxSendDraftRequest(
+        string $draft_id,
+        \Qubrics\Mailbox\Model\SendMailboxDraft $send_mailbox_draft,
+        ?string $if_match = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxSendDraft'][0]
+    ): Request {
+
+        // verify the required parameter 'draft_id' is set
+        if ($draft_id === null || (is_array($draft_id) && count($draft_id) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $draft_id when calling mailboxSendDraft'
+            );
+        }
+
+        // verify the required parameter 'send_mailbox_draft' is set
+        if ($send_mailbox_draft === null || (is_array($send_mailbox_draft) && count($send_mailbox_draft) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $send_mailbox_draft when calling mailboxSendDraft'
+            );
+        }
+
+
+
+
+        $resourcePath = '/mailbox/drafts/{draftId}/send';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $mailbox_id,
+            'mailbox_id', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+        // header params
+        if ($if_match !== null) {
+            $headerParams['If-Match'] = ObjectSerializer::toHeaderValue($if_match);
+        }
+
+        // path params
+        if ($draft_id !== null) {
+            $resourcePath = str_replace(
+                '{draftId}',
+                ObjectSerializer::toPathValue($draft_id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($send_mailbox_draft)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($send_mailbox_draft));
+            } else {
+                $httpBody = $send_mailbox_draft;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires OAuth (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        // this endpoint requires Bearer (API Key) authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
             $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody
@@ -17402,6 +26819,1042 @@ class MailboxAPIApi
         $query = ObjectSerializer::buildQuery($queryParams);
         return new Request(
             'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation mailboxUpdateCalendarEvent
+     *
+     * Update a non-sending event
+     *
+     * @param  string $event_id event_id (required)
+     * @param  string $if_match if_match (required)
+     * @param  \Qubrics\Mailbox\Model\PatchCalendarEventBody $patch_calendar_event_body patch_calendar_event_body (required)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxUpdateCalendarEvent'] to see the possible values for this operation
+     *
+     * @throws ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws InvalidArgumentException
+     * @return \Qubrics\Mailbox\Model\MailboxCalendarEventUpdatedResponse|\Qubrics\Mailbox\Model\ApiError
+     */
+    public function mailboxUpdateCalendarEvent(
+        string $event_id,
+        string $if_match,
+        \Qubrics\Mailbox\Model\PatchCalendarEventBody $patch_calendar_event_body,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxUpdateCalendarEvent'][0]
+    ): \Qubrics\Mailbox\Model\MailboxCalendarEventUpdatedResponse|\Qubrics\Mailbox\Model\ApiError {
+        list($response) = $this->mailboxUpdateCalendarEventWithHttpInfo(
+            $event_id,
+            $if_match,
+            $patch_calendar_event_body,
+            $mailbox_id,
+            $contentType
+        );
+        return $response;
+    }
+
+    /**
+     * Operation mailboxUpdateCalendarEventWithHttpInfo
+     *
+     * Update a non-sending event
+     *
+     * @param  string $event_id event_id (required)
+     * @param  string $if_match if_match (required)
+     * @param  \Qubrics\Mailbox\Model\PatchCalendarEventBody $patch_calendar_event_body patch_calendar_event_body (required)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxUpdateCalendarEvent'] to see the possible values for this operation
+     *
+     * @throws ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws InvalidArgumentException
+     * @return array of \Qubrics\Mailbox\Model\MailboxCalendarEventUpdatedResponse|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function mailboxUpdateCalendarEventWithHttpInfo(
+        string $event_id,
+        string $if_match,
+        \Qubrics\Mailbox\Model\PatchCalendarEventBody $patch_calendar_event_body,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxUpdateCalendarEvent'][0]
+    ): array {
+        $request = $this->mailboxUpdateCalendarEventRequest(
+            $event_id,
+            $if_match,
+            $patch_calendar_event_body,
+            $mailbox_id,
+            $contentType
+        );
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            switch ($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\MailboxCalendarEventUpdatedResponse',
+                        $request,
+                        $response,
+                    );
+                case 400:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 401:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 403:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 409:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 413:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 422:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 429:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 500:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 503:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+            }
+
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Qubrics\Mailbox\Model\MailboxCalendarEventUpdatedResponse',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\MailboxCalendarEventUpdatedResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 409:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 413:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 422:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 429:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 503:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation mailboxUpdateCalendarEventAsync
+     *
+     * Update a non-sending event
+     *
+     * @param  string $event_id event_id (required)
+     * @param  string $if_match if_match (required)
+     * @param  \Qubrics\Mailbox\Model\PatchCalendarEventBody $patch_calendar_event_body patch_calendar_event_body (required)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxUpdateCalendarEvent'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return PromiseInterface
+     */
+    public function mailboxUpdateCalendarEventAsync(
+        string $event_id,
+        string $if_match,
+        \Qubrics\Mailbox\Model\PatchCalendarEventBody $patch_calendar_event_body,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxUpdateCalendarEvent'][0]
+    ): PromiseInterface {
+        return $this->mailboxUpdateCalendarEventAsyncWithHttpInfo(
+            $event_id,
+            $if_match,
+            $patch_calendar_event_body,
+            $mailbox_id,
+            $contentType
+        )
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation mailboxUpdateCalendarEventAsyncWithHttpInfo
+     *
+     * Update a non-sending event
+     *
+     * @param  string $event_id event_id (required)
+     * @param  string $if_match if_match (required)
+     * @param  \Qubrics\Mailbox\Model\PatchCalendarEventBody $patch_calendar_event_body patch_calendar_event_body (required)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxUpdateCalendarEvent'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return PromiseInterface
+     */
+    public function mailboxUpdateCalendarEventAsyncWithHttpInfo(
+        string $event_id,
+        string $if_match,
+        \Qubrics\Mailbox\Model\PatchCalendarEventBody $patch_calendar_event_body,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxUpdateCalendarEvent'][0]
+    ): PromiseInterface {
+        $returnType = '\Qubrics\Mailbox\Model\MailboxCalendarEventUpdatedResponse';
+        $request = $this->mailboxUpdateCalendarEventRequest(
+            $event_id,
+            $if_match,
+            $patch_calendar_event_body,
+            $mailbox_id,
+            $contentType
+        );
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType, $request) {
+                    return $this->handleResponseWithDataType($returnType, $request, $response);
+                },
+                function ($exception) {
+                    if ($exception instanceof RequestException) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            $exception->getResponse() ? $exception->getResponse()->getHeaders() : null,
+                            $exception->getResponse() ? (string) $exception->getResponse()->getBody() : null
+                        );
+                    }
+
+                    if ($exception instanceof ConnectException) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            null,
+                            null
+                        );
+                    }
+
+                    if ($exception instanceof \Throwable) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            null,
+                            null
+                        );
+                    }
+
+                    throw new ApiException('[0] Unknown API error', 0, null, null);
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'mailboxUpdateCalendarEvent'
+     *
+     * @param  string $event_id event_id (required)
+     * @param  string $if_match if_match (required)
+     * @param  \Qubrics\Mailbox\Model\PatchCalendarEventBody $patch_calendar_event_body patch_calendar_event_body (required)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxUpdateCalendarEvent'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function mailboxUpdateCalendarEventRequest(
+        string $event_id,
+        string $if_match,
+        \Qubrics\Mailbox\Model\PatchCalendarEventBody $patch_calendar_event_body,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxUpdateCalendarEvent'][0]
+    ): Request {
+
+        // verify the required parameter 'event_id' is set
+        if ($event_id === null || (is_array($event_id) && count($event_id) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $event_id when calling mailboxUpdateCalendarEvent'
+            );
+        }
+        if (strlen($event_id) > 4096) {
+            throw new InvalidArgumentException('invalid length for "$event_id" when calling MailboxAPIApi.mailboxUpdateCalendarEvent, must be smaller than or equal to 4096.');
+        }
+        if (strlen($event_id) < 1) {
+            throw new InvalidArgumentException('invalid length for "$event_id" when calling MailboxAPIApi.mailboxUpdateCalendarEvent, must be bigger than or equal to 1.');
+        }
+        if (!preg_match("/^[A-Za-z0-9_-]+$/", $event_id)) {
+            throw new InvalidArgumentException("invalid value for \"event_id\" when calling MailboxAPIApi.mailboxUpdateCalendarEvent, must conform to the pattern /^[A-Za-z0-9_-]+$/.");
+        }
+
+        // verify the required parameter 'if_match' is set
+        if ($if_match === null || (is_array($if_match) && count($if_match) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $if_match when calling mailboxUpdateCalendarEvent'
+            );
+        }
+        if (strlen($if_match) < 1) {
+            throw new InvalidArgumentException('invalid length for "$if_match" when calling MailboxAPIApi.mailboxUpdateCalendarEvent, must be bigger than or equal to 1.');
+        }
+
+        // verify the required parameter 'patch_calendar_event_body' is set
+        if ($patch_calendar_event_body === null || (is_array($patch_calendar_event_body) && count($patch_calendar_event_body) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $patch_calendar_event_body when calling mailboxUpdateCalendarEvent'
+            );
+        }
+
+
+
+        $resourcePath = '/mailbox/calendar-events/{event_id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $mailbox_id,
+            'mailbox_id', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+        // header params
+        if ($if_match !== null) {
+            $headerParams['If-Match'] = ObjectSerializer::toHeaderValue($if_match);
+        }
+
+        // path params
+        if ($event_id !== null) {
+            $resourcePath = str_replace(
+                '{event_id}',
+                ObjectSerializer::toPathValue($event_id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($patch_calendar_event_body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($patch_calendar_event_body));
+            } else {
+                $httpBody = $patch_calendar_event_body;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires OAuth (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        // this endpoint requires Bearer (API Key) authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PATCH',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation mailboxUpdateDraft
+     *
+     * Edit a saved draft
+     *
+     * @param  string $draft_id Stable draft ID. (required)
+     * @param  \Qubrics\Mailbox\Model\UpdateMailboxDraft $update_mailbox_draft update_mailbox_draft (required)
+     * @param  string|null $if_match Current draft ETag; expected_revision is also required. (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxUpdateDraft'] to see the possible values for this operation
+     *
+     * @throws ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws InvalidArgumentException
+     * @return \Qubrics\Mailbox\Model\MailboxDraftResponse|\Qubrics\Mailbox\Model\ApiError
+     */
+    public function mailboxUpdateDraft(
+        string $draft_id,
+        \Qubrics\Mailbox\Model\UpdateMailboxDraft $update_mailbox_draft,
+        ?string $if_match = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxUpdateDraft'][0]
+    ): \Qubrics\Mailbox\Model\MailboxDraftResponse|\Qubrics\Mailbox\Model\ApiError {
+        list($response) = $this->mailboxUpdateDraftWithHttpInfo(
+            $draft_id,
+            $update_mailbox_draft,
+            $if_match,
+            $mailbox_id,
+            $contentType
+        );
+        return $response;
+    }
+
+    /**
+     * Operation mailboxUpdateDraftWithHttpInfo
+     *
+     * Edit a saved draft
+     *
+     * @param  string $draft_id Stable draft ID. (required)
+     * @param  \Qubrics\Mailbox\Model\UpdateMailboxDraft $update_mailbox_draft update_mailbox_draft (required)
+     * @param  string|null $if_match Current draft ETag; expected_revision is also required. (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxUpdateDraft'] to see the possible values for this operation
+     *
+     * @throws ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws InvalidArgumentException
+     * @return array of \Qubrics\Mailbox\Model\MailboxDraftResponse|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError|\Qubrics\Mailbox\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function mailboxUpdateDraftWithHttpInfo(
+        string $draft_id,
+        \Qubrics\Mailbox\Model\UpdateMailboxDraft $update_mailbox_draft,
+        ?string $if_match = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxUpdateDraft'][0]
+    ): array {
+        $request = $this->mailboxUpdateDraftRequest(
+            $draft_id,
+            $update_mailbox_draft,
+            $if_match,
+            $mailbox_id,
+            $contentType
+        );
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            switch ($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\MailboxDraftResponse',
+                        $request,
+                        $response,
+                    );
+                case 400:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 401:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 403:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 409:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 413:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 422:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 429:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 500:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+                case 503:
+                    return $this->handleResponseWithDataType(
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $request,
+                        $response,
+                    );
+            }
+
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Qubrics\Mailbox\Model\MailboxDraftResponse',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\MailboxDraftResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 409:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 413:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 422:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 429:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 503:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Qubrics\Mailbox\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation mailboxUpdateDraftAsync
+     *
+     * Edit a saved draft
+     *
+     * @param  string $draft_id Stable draft ID. (required)
+     * @param  \Qubrics\Mailbox\Model\UpdateMailboxDraft $update_mailbox_draft update_mailbox_draft (required)
+     * @param  string|null $if_match Current draft ETag; expected_revision is also required. (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxUpdateDraft'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return PromiseInterface
+     */
+    public function mailboxUpdateDraftAsync(
+        string $draft_id,
+        \Qubrics\Mailbox\Model\UpdateMailboxDraft $update_mailbox_draft,
+        ?string $if_match = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxUpdateDraft'][0]
+    ): PromiseInterface {
+        return $this->mailboxUpdateDraftAsyncWithHttpInfo(
+            $draft_id,
+            $update_mailbox_draft,
+            $if_match,
+            $mailbox_id,
+            $contentType
+        )
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation mailboxUpdateDraftAsyncWithHttpInfo
+     *
+     * Edit a saved draft
+     *
+     * @param  string $draft_id Stable draft ID. (required)
+     * @param  \Qubrics\Mailbox\Model\UpdateMailboxDraft $update_mailbox_draft update_mailbox_draft (required)
+     * @param  string|null $if_match Current draft ETag; expected_revision is also required. (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxUpdateDraft'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return PromiseInterface
+     */
+    public function mailboxUpdateDraftAsyncWithHttpInfo(
+        string $draft_id,
+        \Qubrics\Mailbox\Model\UpdateMailboxDraft $update_mailbox_draft,
+        ?string $if_match = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxUpdateDraft'][0]
+    ): PromiseInterface {
+        $returnType = '\Qubrics\Mailbox\Model\MailboxDraftResponse';
+        $request = $this->mailboxUpdateDraftRequest(
+            $draft_id,
+            $update_mailbox_draft,
+            $if_match,
+            $mailbox_id,
+            $contentType
+        );
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType, $request) {
+                    return $this->handleResponseWithDataType($returnType, $request, $response);
+                },
+                function ($exception) {
+                    if ($exception instanceof RequestException) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            $exception->getResponse() ? $exception->getResponse()->getHeaders() : null,
+                            $exception->getResponse() ? (string) $exception->getResponse()->getBody() : null
+                        );
+                    }
+
+                    if ($exception instanceof ConnectException) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            null,
+                            null
+                        );
+                    }
+
+                    if ($exception instanceof \Throwable) {
+                        throw new ApiException(
+                            "[{$exception->getCode()}] {$exception->getMessage()}",
+                            (int) $exception->getCode(),
+                            null,
+                            null
+                        );
+                    }
+
+                    throw new ApiException('[0] Unknown API error', 0, null, null);
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'mailboxUpdateDraft'
+     *
+     * @param  string $draft_id Stable draft ID. (required)
+     * @param  \Qubrics\Mailbox\Model\UpdateMailboxDraft $update_mailbox_draft update_mailbox_draft (required)
+     * @param  string|null $if_match Current draft ETag; expected_revision is also required. (optional)
+     * @param  string|null $mailbox_id Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['mailboxUpdateDraft'] to see the possible values for this operation
+     *
+     * @throws InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function mailboxUpdateDraftRequest(
+        string $draft_id,
+        \Qubrics\Mailbox\Model\UpdateMailboxDraft $update_mailbox_draft,
+        ?string $if_match = null,
+        ?string $mailbox_id = null,
+        string $contentType = self::contentTypes['mailboxUpdateDraft'][0]
+    ): Request {
+
+        // verify the required parameter 'draft_id' is set
+        if ($draft_id === null || (is_array($draft_id) && count($draft_id) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $draft_id when calling mailboxUpdateDraft'
+            );
+        }
+
+        // verify the required parameter 'update_mailbox_draft' is set
+        if ($update_mailbox_draft === null || (is_array($update_mailbox_draft) && count($update_mailbox_draft) === 0)) {
+            throw new InvalidArgumentException(
+                'Missing the required parameter $update_mailbox_draft when calling mailboxUpdateDraft'
+            );
+        }
+
+
+
+
+        $resourcePath = '/mailbox/drafts/{draftId}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $mailbox_id,
+            'mailbox_id', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+        // header params
+        if ($if_match !== null) {
+            $headerParams['If-Match'] = ObjectSerializer::toHeaderValue($if_match);
+        }
+
+        // path params
+        if ($draft_id !== null) {
+            $resourcePath = str_replace(
+                '{draftId}',
+                ObjectSerializer::toPathValue($draft_id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($update_mailbox_draft)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($update_mailbox_draft));
+            } else {
+                $httpBody = $update_mailbox_draft;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires OAuth (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        // this endpoint requires Bearer (API Key) authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PATCH',
             $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody
@@ -19075,6 +29528,20 @@ class MailboxAPIApi
                     );
                 }
             }
+        }
+
+        if ($dataType === '\Qubrics\Mailbox\Model\MailboxChangesResponse|\Qubrics\Mailbox\Model\MailboxTypedChangesResponse') {
+            foreach (explode('|', $dataType) as $variant) {
+                try {
+                    $value = ObjectSerializer::deserialize($content, $variant, []);
+                    if ($value instanceof $variant && $value->valid() && $value->getData()->valid()) {
+                        return [$value, $response->getStatusCode(), $response->getHeaders()];
+                    }
+                } catch (\InvalidArgumentException | \TypeError $error) {
+                    // Try the next declared response model, never raw JSON.
+                }
+            }
+            throw new \UnexpectedValueException('mailboxGetChanges response matches neither declared model');
         }
 
         return [
