@@ -43,6 +43,21 @@ $expect(InstalledVersions::getRootPackage()['name'] === 'qubrics/mailbox', 'Comp
 $expect(InstalledVersions::isInstalled('qubrics/core'), 'Composer installs Qubrics core');
 
 $api = ClientFactory::createMailboxAPIApi('smx_mbx_fixture');
+foreach (get_class_methods($api) as $method) {
+    $expect(!str_contains(strtolower($method), 'calendar'), 'Calendar operations are absent from the Mailbox client');
+}
+foreach ([
+    'CreateCalendarBody', 'CreateCalendarEventBody', 'MailboxCalendar', 'MailboxCalendarChanges',
+    'MailboxCalendarChangesResponse', 'MailboxCalendarCreated', 'MailboxCalendarCreatedResponse',
+    'MailboxCalendarDeletedResponse', 'MailboxCalendarEvent', 'MailboxCalendarEventCreated',
+    'MailboxCalendarEventCreatedResponse', 'MailboxCalendarEventDeletedResponse',
+    'MailboxCalendarEventDeletedResponseAllOfData', 'MailboxCalendarEventListResponse',
+    'MailboxCalendarEventResponse', 'MailboxCalendarEventUpdatedResponse',
+    'MailboxCalendarEventUpdatedResponseAllOfData', 'MailboxCalendarEventWithEtag',
+    'MailboxCalendarListResponse', 'MailboxCalendarResponse', 'MailboxCalendarWithEtag', 'PatchCalendarEventBody',
+] as $model) {
+    $expect(!class_exists('Qubrics\\Mailbox\\Model\\' . $model), 'Retired calendar model is absent: ' . $model);
+}
 $request = $api->mailboxGetConnectionRequest();
 $expect(
     (string) $request->getUri() === 'https://app.qubrics.com/api/v1/mailbox/connection',
